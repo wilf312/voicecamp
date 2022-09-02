@@ -8,7 +8,7 @@ type props = {
   title?: string;
   episodeNo: number;
 };
-export const Player = (props: props) => {
+export default function Player(props: props) {
   const player = usePlayer();
   const tweetLink = useTweetLink({
     hash: props.hash,
@@ -38,4 +38,4 @@ export const Player = (props: props) => {
       )}
     </div>
   );
-};
+}
