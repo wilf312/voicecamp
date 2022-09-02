@@ -7,7 +7,8 @@ import * as $1 from "./routes/api/joke.ts";
 import * as $2 from "./routes/content/[podcastName]/[episode].tsx";
 import * as $3 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/PodcastList.tsx";
+import * as $$1 from "./islands/Player.tsx";
+import * as $$2 from "./islands/PodcastList.tsx";
 
 const manifest = {
   routes: {
@@ -18,7 +19,8 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $$0,
-    "./islands/PodcastList.tsx": $$1,
+    "./islands/Player.tsx": $$1,
+    "./islands/PodcastList.tsx": $$2,
   },
   baseUrl: import.meta.url,
 };

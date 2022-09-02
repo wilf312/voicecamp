@@ -1,12 +1,11 @@
 /** @jsx h */
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
-import { findPodcastConfig } from "../../../config.ts";
 import { getPodcast } from "../../../domain/api.ts";
 import type { GetPodcast } from "../../../domain/api.ts";
 import type { EpisodeItem } from "../../../components/EpisodeList.tsx";
 import { EpisodeList } from "../../../components/EpisodeList.tsx";
-import { Player } from "../../../components/Player.tsx";
+import Player from "../../../islands/Player.tsx";
 
 interface User {
   login: string;
