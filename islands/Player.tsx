@@ -1,6 +1,6 @@
 /** @jsx h */
 import { h } from "preact";
-import { useRef, useState, useMemo, useEffect } from "preact/hooks";
+import { useEffect, useMemo, useRef, useState } from "preact/hooks";
 
 type props = {
   src: string;
@@ -9,7 +9,6 @@ type props = {
   episodeNo: number;
 };
 export default function Player(props: props) {
-
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number | null>(null);
 
@@ -46,10 +45,10 @@ export default function Player(props: props) {
 
   const tweetLink = useMemo(() => {
     let href = "";
-    if (!location) {
+    if (!window.location) {
       return "";
     }
-    href = location.href;
+    href = window.location.href;
     const text = encodeURIComponent(
       `${props?.title} ${href} #${props.hash}${
         props.episodeNo ? `.${props.episodeNo}` : ""
@@ -57,7 +56,6 @@ export default function Player(props: props) {
     );
     return `https://twitter.com/intent/tweet?text=${text}`;
   }, [props?.title, props.hash, props.episodeNo, currentTime]);
-
 
   return (
     <div
