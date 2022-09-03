@@ -46,7 +46,13 @@ export default function GreetPage(
     <div>
       <div class={tw`px-7 pt-7 pb-3 `}>
         {episode && (
-          <img class={tw`rounded-md`} src={episode["itunes:image"]["@href"]} />
+          <img
+            class={tw`rounded-md`}
+            style={{
+              boxShadow: `3px 3px 8px 1px grey;`,
+            }}
+            src={episode["itunes:image"]["@href"]}
+          />
         )}
       </div>
       <h1 class={tw`px-2 text-center text-base`}>{episode?.title}</h1>
@@ -59,10 +65,12 @@ export default function GreetPage(
           src={episode.enclosure["@url"]}
         />
       )}
-      <EpisodeList
+      {
+        /* <EpisodeList
         episodeList={episodeList}
         podcastName={podcastName}
-      />
+      /> */
+      }
     </div>
   );
 }
