@@ -39,8 +39,6 @@ export default function GreetPage(
     return d.guid["#text"] === decodeURIComponent(guid);
   });
 
-  console.log(episode, decodeURIComponent(guid));
-
   return (
     <div>
       <h1>{episode?.title}</h1>
