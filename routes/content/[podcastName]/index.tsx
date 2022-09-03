@@ -28,11 +28,9 @@ export const handler: Handlers<GetPodcast | null> = {
 
     const newestEpisode = data.item[0];
 
-    const redirectURL = `/content/${
-      encodeURIComponent(
-        ctx.params.podcastName,
-      )
-    }/${encodeURIComponent(newestEpisode.guid["#text"])}`;
+    const redirectURL = `/content/${ctx.params.podcastName}/${
+      encodeURIComponent(newestEpisode.guid["#text"])
+    }`;
 
     return new Response("", {
       status: 303,
