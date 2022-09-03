@@ -1,17 +1,8 @@
 /** @jsx h */
 import { h } from "preact";
-import { Handlers, PageProps } from "$fresh/server.ts";
+import { Handlers } from "$fresh/server.ts";
 import { getPodcast } from "../../../domain/api.ts";
 import type { GetPodcast } from "../../../domain/api.ts";
-import type { EpisodeItem } from "../../../components/EpisodeList.tsx";
-import { EpisodeList } from "../../../components/EpisodeList.tsx";
-import Player from "../../../islands/Player.tsx";
-
-interface User {
-  login: string;
-  name: string;
-  avatar_url: string;
-}
 
 export const handler: Handlers<GetPodcast | null> = {
   async GET(_, ctx) {
@@ -36,14 +27,6 @@ export const handler: Handlers<GetPodcast | null> = {
       status: 303,
       headers: {
         Location: redirectURL,
-      },
-    });
-
-    // トップページにリダイレクト
-    return new Response("", {
-      status: 303,
-      headers: {
-        Location: "/",
       },
     });
   },

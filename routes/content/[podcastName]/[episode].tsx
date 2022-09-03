@@ -6,6 +6,7 @@ import type { GetPodcast } from "../../../domain/api.ts";
 import type { EpisodeItem } from "../../../components/EpisodeList.tsx";
 import { EpisodeList } from "../../../components/EpisodeList.tsx";
 import Player from "../../../islands/Player.tsx";
+import { tw } from "@twind";
 
 interface PageType {
   podcastMaster: GetPodcast;
@@ -39,23 +40,37 @@ export default function GreetPage(
     return d.guid["#text"] === decodeURIComponent(guid);
   });
 
+  console.log(episode["itunes:image"]["@href"]);
+
   return (
     <div>
-      <h1>{episode?.title}</h1>
-      <h2>{podcastMaster?.title}</h2>
+      <div class={tw`px-7 pt-7 pb-3 `}>
+        {episode && (
+          <img
+            class={tw`rounded-md`}
+            style={{
+              boxShadow: `3px 3px 8px 1px grey;`,
+            }}
+            src={episode["itunes:image"]["@href"]}
+          />
+        )}
+      </div>
+      <h1 class={tw`px-2 text-center text-base`}>{episode?.title}</h1>
+      <h2 class={tw`pt-2 text-center text-sm`}>{podcastMaster?.title}</h2>
 
       {episode && (
         <Player
           hash={podcastName}
-          title={episode?.title}
-          episodeNo={episode["itunes:episode"]}
+          episode={episode}
           src={episode.enclosure["@url"]}
         />
       )}
-      <EpisodeList
+      {
+        /* <EpisodeList
         episodeList={episodeList}
         podcastName={podcastName}
-      />
+      /> */
+      }
     </div>
   );
 }
