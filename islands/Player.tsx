@@ -50,23 +50,26 @@ export default function Player(props: props) {
   };
 
   /**
-   * when: usePlayer読み込みしたあと、audioRef.currentが存在するとき
+   * when: コンポーネント読み込み時srcをセットする
    * action: queryの ?s=10 を parseして audioの現在の再生時間に10を設定する
    */
   useEffect(() => {
-    if (!audioRef.current) {
-      return;
-    }
+    audioRef.current = new Audio();
+    audioRef.current.src = props.src;
+    audioRef.current.ontimeupdate = onTimeUpdate;
 
+    // queryから秒数を取り出して audioに適応する
     const secondForLocationSearch =
       new URL(location.href).searchParams.get("s") || "0";
-
     audioRef.current.currentTime = parseInt(secondForLocationSearch, 10) || 0;
 
     setCurrentTime(audioRef.current.currentTime);
 
-    setDuration(`${parseInt(audioRef.current?.duration, 10) || 0}`);
-  }, [audioRef.current?.currentTime, audioRef.current?.duration]);
+    audioRef.current.onload = () => {
+      console.log("loaded");
+      setDuration(`${parseInt(audioRef.current.duration || "0", 10) || 0}`);
+    };
+  }, []);
 
   return (
     <div
@@ -84,18 +87,53 @@ export default function Player(props: props) {
         max={duration}
         value={currentTime || 0}
       />
-      <audio
-        controls
-        src={props.src}
-        ref={audioRef}
-        style={{ width: "95vw" }}
-        onTimeUpdate={onTimeUpdate}
-      />
-      {tweetUrl && (
-        <a href={tweetUrl} target="_blank" rel="noreferrer">
-          ツイート
-        </a>
-      )}
+      <button
+        onClick={() => {
+          console.log(`再生`);
+          audioRef.current?.play();
+        }}
+      >
+        再生
+      </button>
+      <button
+        onClick={() => {
+          console.log(`停止`);
+          audioRef.current?.pause();
+        }}
+      >
+        停止
+      </button>
+      <button
+        onClick={() => {
+          console.log(`再生速度変更`);
+          audioRef.current?.play();
+        }}
+      >
+        再生速度変更
+      </button>
+      <button
+        onClick={() => {
+          console.log(`10秒戻る`);
+          audioRef.current?.play();
+        }}
+      >
+        10秒戻る
+      </button>
+      <button
+        onClick={() => {
+          console.log(`10秒進む`);
+          audioRef.current?.play();
+        }}
+      >
+        10秒進む
+      </button>
+      <div>
+        {tweetUrl && (
+          <a href={tweetUrl} target="_blank" rel="noreferrer">
+            ツイート
+          </a>
+        )}
+      </div>
     </div>
   );
 }
