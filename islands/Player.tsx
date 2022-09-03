@@ -10,7 +10,6 @@ type props = {
 };
 export default function Player(props: props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const [currentTime, setCurrentTime] = useState<number | null>(null);
   const [tweetUrl, setTweetUrl] = useState<string>("");
 
   /**
@@ -53,8 +52,6 @@ export default function Player(props: props) {
       new URL(location.href).searchParams.get("s") || "0";
 
     audioRef.current.currentTime = parseInt(secondForLocationSearch, 10) || 0;
-
-    setCurrentTime(audioRef.current.currentTime);
   }, [audioRef.current?.currentTime]);
 
   return (
