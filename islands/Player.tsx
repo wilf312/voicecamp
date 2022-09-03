@@ -11,6 +11,7 @@ type props = {
 export default function Player(props: props) {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [currentTime, setCurrentTime] = useState<number | null>(null);
+  const [tweetUrl, setTweetUrl] = useState<string>("");
 
   /**
    * タイミング: プレイヤー再生時
@@ -23,6 +24,19 @@ export default function Player(props: props) {
       const url = `${location.pathname}${`?s=${_floored}`}`;
       // https://developer.mozilla.org/ja/docs/Web/API/History/replaceState
       history.replaceState(null, "", url);
+
+      let href = "";
+      if (!window.location) {
+        return "";
+      }
+      href = window.location.href;
+
+      const text = encodeURIComponent(
+        `${props?.title} ${href} #${decodeURIComponent(props.hash)}${
+          props.episodeNo ? `.${props.episodeNo}` : ""
+        }`,
+      );
+      setTweetUrl(`https://twitter.com/intent/tweet?text=${text}`);
     }
   };
 
@@ -43,20 +57,6 @@ export default function Player(props: props) {
     setCurrentTime(audioRef.current.currentTime);
   }, [audioRef.current?.currentTime]);
 
-  const tweetLink = useMemo(() => {
-    let href = "";
-    if (!window.location) {
-      return "";
-    }
-    href = window.location.href;
-    const text = encodeURIComponent(
-      `${props?.title} ${href} #${props.hash}${
-        props.episodeNo ? `.${props.episodeNo}` : ""
-      }`,
-    );
-    return `https://twitter.com/intent/tweet?text=${text}`;
-  }, [props?.title, props.hash, props.episodeNo, currentTime]);
-
   return (
     <div
       style={{
@@ -71,8 +71,8 @@ export default function Player(props: props) {
         style={{ width: "95vw" }}
         onTimeUpdate={onTimeUpdate}
       />
-      {tweetLink && (
-        <a href={`${tweetLink}`} target="_blank" rel="noreferrer">
+      {tweetUrl && (
+        <a href={tweetUrl} target="_blank" rel="noreferrer">
           ツイート
         </a>
       )}
