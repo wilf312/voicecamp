@@ -7,13 +7,13 @@ import type { EpisodeItem } from "../../../components/EpisodeList.tsx";
 import { EpisodeList } from "../../../components/EpisodeList.tsx";
 import Player from "../../../islands/Player.tsx";
 
-interface User {
-  login: string;
-  name: string;
-  avatar_url: string;
+interface PageType {
+  podcastMaster: GetPodcast;
+  podcastName: string;
+  guid: string;
 }
 
-export const handler: Handlers<GetPodcast | null> = {
+export const handler: Handlers<PageType | null> = {
   async GET(_, ctx) {
     console.log(ctx.params);
     const resp = await getPodcast(ctx.params.podcastName);
@@ -32,7 +32,7 @@ export const handler: Handlers<GetPodcast | null> = {
 export default function GreetPage(
   {
     data: { podcastMaster, podcastName, guid },
-  }: PageProps<User | null>,
+  }: PageProps<PageType | null>,
 ) {
   const episodeList = podcastMaster.item;
   const episode: EpisodeItem | null = episodeList.find((d: EpisodeItem) => {
