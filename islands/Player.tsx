@@ -89,6 +89,9 @@ export default function Player(props: props) {
         max={duration}
         value={currentTime || 0}
       />
+      <div>再生時間</div>
+      <div>残り時間</div>
+
       <div class={tw`flex justify-evenly py-2`}>
         <svg
           onClick={() => {

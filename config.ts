@@ -388,6 +388,138 @@ export const urlList: UrlListItem[] = [
     hash: "soussune",
     url: "https://soussune.com/feed.xml",
   },
+
+  {
+    name: "Kubernetes Podcast from Google",
+    hash: "Kubernetes_Podcast_from_Google",
+    url: "https://kubernetespodcast.com/feeds/audio.xml",
+  },
+
+  {
+    name: "Google Cloud Platform Podcast",
+    hash: "Google_Cloud_Platform_Podcast",
+    url: "https://googlecloudpodcast.libsyn.com/rss",
+  },
+
+  {
+    name: "React Podcast",
+    hash: "React_Podcast",
+    url: "https://feeds.simplecast.com/JoR28o79",
+  },
+
+  {
+    name: "Turing Complete FM",
+    hash: "tcfm",
+    url: "https://feeds.turingcomplete.fm/tcfm",
+  },
+
+  {
+    name: "Misreading Chat",
+    hash: "misreading",
+    url: "https://misreading.chat/category/episodes/feed/",
+  },
+
+  {
+    name: "未来授業",
+    hash: "未来授業",
+    url: "https://www.tfm.co.jp/podcasts/future/podcast.xml",
+  },
+
+  {
+    name: "前田ヒロ Startup Podcast",
+    hash: "前田ヒロ",
+    url: "https://hiromaeda.com/feed/podcast/",
+  },
+
+  {
+    name: "nextstep.fm",
+    hash: "nextstepfm",
+    url: "https://nextstep.fm/feed.xml",
+  },
+
+  {
+    name: "EM . FM #EMFM",
+    hash: "EMF",
+    url: "https://anchor.fm/s/70a2c40/podcast/rss",
+  },
+
+  {
+    name: "yatteiki.fm",
+    hash: "yatteikifm",
+    url: "https://yatteiki.fm/feed.xml",
+  },
+
+  {
+    name: "PHPの現場",
+    hash: "phpgenba",
+    url: "https://php-genba.shin1x1.com/rss",
+  },
+
+  {
+    name: "Automagic Podcast",
+    hash: "automagic",
+    url: "https://feedpress.me/automagic",
+  },
+
+  {
+    name: "ajitofm",
+    hash: "ajitofm",
+    url: "https://ajito.fm/index.xml",
+  },
+
+  {
+    name: "“MOOK STUDY”日本の歴史（ムックスタディー 日本の歴史）",
+    hash: "MOOKSTUDY日本の歴史",
+    url: "https://mookstudy1.mookmookradio.com/feed/",
+  },
+
+  {
+    name: "狭くて浅いやつら 漫画（マンガ）・ゲーム・映画・アニメの感想",
+    hash: "狭浅",
+    url: "https://semaasa.net/feed/podcast",
+  },
+
+  {
+    name: "mozaic.fm",
+    hash: "mozaicfm",
+    url: "http://feed.mozaic.fm/",
+  },
+
+  {
+    name: "mosa.fm",
+    hash: "mosafm",
+    url: "https://mosa.fm/feed.xml",
+  },
+
+  {
+    name: "dex.fm",
+    hash: "dexfm",
+    url: "https://dex.fm/rss",
+  },
+
+  {
+    name: "#strobofm",
+    hash: "strobofm",
+    url: "https://feeds.feedburner.com/strobofm",
+  },
+
+  {
+    name: "engineer meeting podcast",
+    hash: "engineermeetingpodcast",
+    url: "https://engineer-meeting.tumblr.com/rss",
+  },
+
+  {
+    name: "しがないラジオ",
+    hash: "しがないラジオ",
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:294673416/sounds.rss",
+  },
+
+  {
+    name: "バイリンガルニュース (Bilingual News)",
+    hash: "バイリンガルニュース",
+    url: "https://bilingualnews.jp/feed/",
+  },
 ];
 
 /**
