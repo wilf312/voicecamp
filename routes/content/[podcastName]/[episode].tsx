@@ -40,8 +40,6 @@ export default function GreetPage(
     return d.guid["#text"] === decodeURIComponent(guid);
   });
 
-  console.log(episode["itunes:image"]["@href"]);
-
   return (
     <div>
       <div class={tw`px-7 pt-7 pb-3 `}>
