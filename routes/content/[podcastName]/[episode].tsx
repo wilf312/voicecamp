@@ -40,16 +40,23 @@ export default function GreetPage(
     return d.guid["#text"] === decodeURIComponent(guid);
   });
 
+  let imageUrl = ``;
+  if (episode && episode["itunes:image"]) {
+    imageUrl = episode["itunes:image"]["@href"];
+  } else if (podcastMaster && podcastMaster["media:thumbnail"]) {
+    imageUrl = podcastMaster["media:thumbnail"]["@url"];
+  }
+
   return (
     <div>
       <div class={tw`px-7 pt-7 pb-3 `}>
-        {episode && (
+        {imageUrl && (
           <img
             class={tw`rounded-md`}
             style={{
               boxShadow: `3px 3px 8px 1px grey;`,
             }}
-            src={episode["itunes:image"]["@href"]}
+            src={imageUrl}
           />
         )}
       </div>
