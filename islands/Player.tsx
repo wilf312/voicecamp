@@ -3,6 +3,7 @@ import { h } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
 import type { EpisodeItem } from "../components/EpisodeList.tsx";
 import { tw } from "@twind";
+import { timeFormatShort } from "../domain/date.ts";
 
 type props = {
   src: string;
@@ -67,11 +68,17 @@ export default function Player(props: props) {
 
     setCurrentTime(audioRef.current.currentTime);
 
-    audioRef.current.onload = () => {
-      console.log("loaded");
-      setDuration(`${parseInt(audioRef.current.duration || "0", 10) || 0}`);
-    };
+    // audioRef.current.onload = () => {
+    //   console.log("loaded");
+    // };
   }, []);
+
+  const formattedCurrentTime = currentTime !== null
+    ? timeFormatShort(currentTime)
+    : "";
+  const formattedTimeLeft = currentTime !== null
+    ? timeFormatShort((audioRef.current?.duration || 0) - currentTime)
+    : "";
 
   return (
     <div
@@ -86,11 +93,13 @@ export default function Player(props: props) {
         type="range"
         name="volume"
         min="1"
-        max={duration}
+        max={audioRef.current?.duration || 1}
         value={currentTime || 0}
       />
-      <div>再生時間</div>
-      <div>残り時間</div>
+      <div class={tw`flex justify-between px-6   text-xs`}>
+        <div>{formattedCurrentTime}</div>
+        <div>{formattedTimeLeft}</div>
+      </div>
 
       <div class={tw`flex justify-evenly py-2`}>
         <svg
