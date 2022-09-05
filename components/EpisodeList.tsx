@@ -13,7 +13,8 @@ export type EpisodeItem = {
     ["#text"]: string;
   };
   ["media:thumbnail"]: {
-    ['@url']: string
+    ["@url"]: string;
+    ["@href"]: string;
   };
   ["itunes:duration"]: string;
   ["itunes:episode"]: number;
