@@ -84,7 +84,7 @@ export default function GreetPage(
           )}
         </div>
         <div
-          class="py-4"
+          class={tw`py-4`}
           style={{
             background: `linear-gradient(45deg, white, transparent)`,
           }}
