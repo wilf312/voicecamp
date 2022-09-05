@@ -41,10 +41,19 @@ export default function GreetPage(
   });
 
   let imageUrl = ``;
+
   if (episode && episode["itunes:image"]) {
+    imageUrl = episode["itunes:image"]["@href"];
+  } else if (podcastMaster && podcastMaster["itunes:image"]) {
+    imageUrl = podcastMaster["itunes:image"]["@href"];
+  } else if (episode?.["media:thumbnail"]?.["@url"] != null) {
+    imageUrl = episode["media:thumbnail"]["@url"];
+  } else if (episode?.["media:thumbnail"]?.["@href"] != null) {
     imageUrl = episode["itunes:image"]["@href"];
   } else if (podcastMaster && podcastMaster["media:thumbnail"]) {
     imageUrl = podcastMaster["media:thumbnail"]["@url"];
+  } else {
+    console.log("thumbnail is not found");
   }
 
   return (
@@ -67,7 +76,7 @@ export default function GreetPage(
         <Player
           hash={podcastName}
           episode={episode}
-          src={episode.enclosure["@url"]}
+          src={episode?.enclosure?.["@url"]}
         />
       )}
       {
