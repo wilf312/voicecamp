@@ -62,31 +62,44 @@ export default function GreetPage(
         ? {
           backgroundImage: `url(${imageUrl})`,
           backgroundSize: `cover`,
-          backdropFilter: `blur(9px)`,
         }
         : {}}
     >
-      <div class={tw`px-7 pt-7 pb-3 `}>
-        {imageUrl && (
-          <img
-            class={tw`rounded-md`}
-            style={{
-              boxShadow: `3px 3px 8px 1px grey;`,
-            }}
-            src={imageUrl}
-          />
-        )}
-      </div>
-      <h1 class={tw`px-2 text-center text-base`}>{episode?.title}</h1>
-      <h2 class={tw`pt-2 text-center text-sm`}>{podcastMaster?.title}</h2>
+      <div
+        style={imageUrl
+          ? {
+            backdropFilter: `blur(9px)`,
+          }
+          : {}}
+      >
+        <div class={tw`px-7 pt-7 pb-3 `}>
+          {imageUrl && (
+            <img
+              class={tw`rounded-md`}
+              style={{
+                boxShadow: `3px 3px 8px 1px grey;`,
+              }}
+              src={imageUrl}
+            />
+          )}
+        </div>
+        <div
+          style={{
+            background: `linear-gradient(45deg, white, transparent)`,
+          }}
+        >
+          <h1 class={tw`px-2 text-center text-base`}>{episode?.title}</h1>
+          <h2 class={tw`pt-2 text-center text-sm`}>{podcastMaster?.title}</h2>
 
-      {episode && (
-        <Player
-          hash={podcastName}
-          episode={episode}
-          src={episode?.enclosure?.["@url"]}
-        />
-      )}
+          {episode && (
+            <Player
+              hash={podcastName}
+              episode={episode}
+              src={episode?.enclosure?.["@url"]}
+            />
+          )}
+        </div>
+      </div>
       {
         /* <EpisodeList
         episodeList={episodeList}
