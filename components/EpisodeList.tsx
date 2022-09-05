@@ -12,6 +12,9 @@ export type EpisodeItem = {
   guid: {
     ["#text"]: string;
   };
+  ["media:thumbnail"]: {
+    ['@url']: string
+  };
   ["itunes:duration"]: string;
   ["itunes:episode"]: number;
   ["itunes:episodeType"]: string;
