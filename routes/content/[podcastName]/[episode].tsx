@@ -57,10 +57,15 @@ export default function GreetPage(
   }
 
   return (
-    <div style={imageUrl ? {
-      background: `url(${imageUrl})`,
-      backdropFilter: `blur(9px)`
-    } : {}}>
+    <div
+      style={imageUrl
+        ? {
+          backgroundImage: `url(${imageUrl})`,
+          backgroundSize: `cover`,
+          backdropFilter: `blur(9px)`,
+        }
+        : {}}
+    >
       <div class={tw`px-7 pt-7 pb-3 `}>
         {imageUrl && (
           <img
