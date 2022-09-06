@@ -7,6 +7,7 @@ import type { GetPodcast } from "../../../domain/api.ts";
 export const handler: Handlers<GetPodcast | null> = {
   async GET(_, ctx) {
     console.log(ctx.params);
+    const url = new URL(_.url);
     const resp = await getPodcast(ctx.params.podcastName);
     if (resp.status === 404) {
       return ctx.render(null);
@@ -19,7 +20,7 @@ export const handler: Handlers<GetPodcast | null> = {
 
     const newestEpisode = data.item[0];
 
-    const redirectURL = `/content/${ctx.params.podcastName}/${
+    const redirectURL = `${url.origin}/content/${ctx.params.podcastName}/${
       encodeURIComponent(newestEpisode.guid["#text"])
     }`;
 
