@@ -52,6 +52,8 @@ export default function GreetPage(
     imageUrl = episode["itunes:image"]["@href"];
   } else if (podcastMaster && podcastMaster["media:thumbnail"]) {
     imageUrl = podcastMaster["media:thumbnail"]["@url"];
+  } else if (podcastMaster && podcastMaster["image"]) {
+    imageUrl = podcastMaster["image"]["url"];
   } else {
     console.log("thumbnail is not found");
   }
@@ -66,25 +68,35 @@ export default function GreetPage(
         : {}}
     >
       <div
+        class={tw`grid grid-rows-2`}
         style={imageUrl
           ? {
+            minHeight: `100vh`,
+            height: `100svh`,
             backdropFilter: `blur(9px)`,
           }
-          : {}}
+          : {
+            minHeight: `100vh`,
+            height: `100svh`,
+          }}
       >
-        <div class={tw`px-7 pt-7 pb-3 `}>
+        {/* アートワーク */}
+        <div class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}>
           {imageUrl && (
             <img
-              class={tw`rounded-md`}
+              class={tw`rounded-md `}
               style={{
+                maxWidth: `16rem`,
+                maxHeight: `16rem`,
                 boxShadow: `3px 3px 8px 1px grey;`,
               }}
               src={imageUrl}
             />
           )}
         </div>
+        {/* コントール部 */}
         <div
-          class={tw`py-4`}
+          class={tw`py-4 flex flex-col justify-end pb-2 `}
           style={{
             background: `linear-gradient(45deg, white, transparent)`,
           }}
