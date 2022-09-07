@@ -212,7 +212,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "セキュリティのアレ",
     hash: "セキュリティのアレ",
-    url: "https://www.tsujileaks.com/?feed=rss2",
+    url: "https://www.tsujileaks.com/?feed=podcast",
   },
 
   {
@@ -518,7 +518,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "バイリンガルニュース (Bilingual News)",
     hash: "バイリンガルニュース",
-    url: "https://bilingualnews.jp/feed/",
+    url: "https://feeds.libsyn.com/46528/rss",
   },
 ];
 
