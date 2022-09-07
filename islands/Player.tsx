@@ -62,6 +62,7 @@ export default function Player(props: props) {
     audioRef.current.playbackRate = playbackRate;
 
     window.test = audioRef
+    window.test2 = props.src
 
     // queryから秒数を取り出して audioに適応する
     const secondForLocationSearch =
