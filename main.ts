@@ -15,6 +15,7 @@ sheet.reset();
 setup({ ...config, sheet });
 
 function render(ctx: RenderContext, render: InnerRenderFunction) {
+  ctx.lang = "ja";
   const snapshot = ctx.state.get("twind") as unknown[] | null;
   sheet.reset(snapshot || undefined);
   render();
