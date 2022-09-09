@@ -58,6 +58,12 @@ export default function GreetPage(
     console.log("thumbnail is not found");
   }
 
+  /**
+   * windowサイズがmd768px以上ならエピソードリストを表示する
+   * windowサイズがmd768px未満なら
+   * エピソードリストを隠して　プレイヤーにエピソードリストを表示するボタンを追加する
+   */
+
   return (
     <div
       style={imageUrl
@@ -113,12 +119,10 @@ export default function GreetPage(
           )}
         </div>
       </div>
-      {
-        /* <EpisodeList
+      <EpisodeList
         episodeList={episodeList}
         podcastName={podcastName}
-      /> */
-      }
+      />
     </div>
   );
 }
