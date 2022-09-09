@@ -2,11 +2,13 @@
 // This file SHOULD be checked into source version control.
 // This file is automatically updated during development when running `dev.ts`.
 
+import config from "./deno.json" assert { type: "json" };
 import * as $0 from "./routes/[name].tsx";
-import * as $1 from "./routes/api/joke.ts";
-import * as $2 from "./routes/content/[podcastName]/[episode].tsx";
-import * as $3 from "./routes/content/[podcastName]/index.tsx";
-import * as $4 from "./routes/index.tsx";
+import * as $1 from "./routes/_app.tsx";
+import * as $2 from "./routes/api/joke.ts";
+import * as $3 from "./routes/content/[podcastName]/[episode].tsx";
+import * as $4 from "./routes/content/[podcastName]/index.tsx";
+import * as $5 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
 import * as $$1 from "./islands/Player.tsx";
 import * as $$2 from "./islands/PodcastList.tsx";
@@ -14,10 +16,11 @@ import * as $$2 from "./islands/PodcastList.tsx";
 const manifest = {
   routes: {
     "./routes/[name].tsx": $0,
-    "./routes/api/joke.ts": $1,
-    "./routes/content/[podcastName]/[episode].tsx": $2,
-    "./routes/content/[podcastName]/index.tsx": $3,
-    "./routes/index.tsx": $4,
+    "./routes/_app.tsx": $1,
+    "./routes/api/joke.ts": $2,
+    "./routes/content/[podcastName]/[episode].tsx": $3,
+    "./routes/content/[podcastName]/index.tsx": $4,
+    "./routes/index.tsx": $5,
   },
   islands: {
     "./islands/Counter.tsx": $$0,
@@ -25,6 +28,7 @@ const manifest = {
     "./islands/PodcastList.tsx": $$2,
   },
   baseUrl: import.meta.url,
+  config,
 };
 
 export default manifest;
