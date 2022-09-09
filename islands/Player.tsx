@@ -89,6 +89,12 @@ export default function Player(props: props) {
       }}
     >
       <input
+        onChange={(e) => {
+          if (e?.currentTarget?.value && audioRef.current?.currentTime) {
+            const num = ~~e?.currentTarget?.value;
+            audioRef.current.currentTime = num;
+          }
+        }}
         class={tw`mx-5`}
         type="range"
         name="volume"
