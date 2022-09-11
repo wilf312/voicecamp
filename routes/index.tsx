@@ -12,6 +12,9 @@ export default function Home() {
       <h1 class="text-xl">
         Voice Camp
       </h1>
+      <p>
+        <a href={`/form`}>add podcast form</a>
+      </p>
       <PodcastList />
     </div>
   );
