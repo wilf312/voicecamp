@@ -101,7 +101,7 @@ export default function GreetPage(
                 maxHeight: `16rem`,
                 boxShadow: `3px 3px 8px 1px grey;`,
               }}
-              src={imageUrl}
+              src={`https://thumb.voicecamp.love/api/${podcastName}`}
             />
           )}
         </div>
