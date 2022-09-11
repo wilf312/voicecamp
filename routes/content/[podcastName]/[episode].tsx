@@ -69,7 +69,7 @@ export default function GreetPage(
       style={imageUrl
         ? {
           backgroundImage: `url(${imageUrl})`,
-          backgroundSize: `cover`,
+          backgroundSize: `200%`,
         }
         : {}}
     >
@@ -87,7 +87,12 @@ export default function GreetPage(
           }}
       >
         {/* アートワーク */}
-        <div class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}>
+        <div
+          class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}
+          style={{
+            minHeight: 380,
+          }}
+        >
           {imageUrl && (
             <img
               class={tw`rounded-md `}
