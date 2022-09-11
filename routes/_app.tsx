@@ -4,6 +4,7 @@
 import { h } from "preact";
 import { Head } from "$fresh/runtime.ts";
 import { AppProps } from "$fresh/src/server/types.ts";
+import GA from "../components/GA.tsx";
 
 export default function App({ Component }: AppProps) {
   return (
@@ -13,6 +14,7 @@ export default function App({ Component }: AppProps) {
       </Head>
       <body>
         <Component />
+        <GA />
       </body>
     </html>
   );
