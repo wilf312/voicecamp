@@ -28,6 +28,7 @@ export default function Home() {
             >
               {/* <h2>{data.name}</h2> */}
               <img
+                alt={data.name}
                 src={`https://orange-field-cc40.wilf.workers.dev/api/${data.hashEncoded}`}
               />
             </a>
