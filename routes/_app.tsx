@@ -15,6 +15,20 @@ export default function App({ Component }: AppProps) {
       <body>
         <Component />
         <GA />
+        <div
+      dangerouslySetInnerHTML={{
+        __html: `
+<!-- service worker -->
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js");
+  });
+}
+</script>`,
+      }}
+    />
+        
       </body>
     </html>
   );
