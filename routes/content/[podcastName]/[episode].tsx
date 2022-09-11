@@ -74,7 +74,7 @@ export default function GreetPage(
         : {}}
     >
       <div
-        class={tw`grid grid-rows-2`}
+        class={tw`flex flex-col justify-between align-center`}
         style={imageUrl
           ? {
             minHeight: `100vh`,
