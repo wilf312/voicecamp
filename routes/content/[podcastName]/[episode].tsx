@@ -126,6 +126,8 @@ export default function GreetPage(
           height: `100vh`,
           backdropFilter: `blur(60px)`,
           padding: "16px",
+          background:
+            `radial-gradient(rgb(255 255 255 / 70%), rgb(255 255 255 / 30%))`,
         }}
       >
         <EpisodeList
