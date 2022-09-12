@@ -76,16 +76,11 @@ export default function GreetPage(
     >
       <div
         class={tw`flex flex-col justify-between align-center`}
-        style={imageUrl
-          ? {
-            minHeight: `100vh`,
-            height: `100svh`,
-            backdropFilter: `blur(9px)`,
-          }
-          : {
-            minHeight: `100vh`,
-            height: `100svh`,
-          }}
+        style={{
+          minHeight: `100vh`,
+          height: `100svh`,
+          backdropFilter: `blur(9px)`,
+        }}
       >
         {/* アートワーク */}
         <div
@@ -125,7 +120,14 @@ export default function GreetPage(
           )}
         </div>
       </div>
-      <div style={{ height: `100vh`, overflowY: `scroll` }}>
+      <div
+        style={{
+          overflowY: `scroll`,
+          height: `100vh`,
+          backdropFilter: `blur(60px)`,
+          padding: "16px",
+        }}
+      >
         <EpisodeList
           episodeList={episodeList}
           podcastName={podcastName}
