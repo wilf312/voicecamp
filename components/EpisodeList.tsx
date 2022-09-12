@@ -1,5 +1,6 @@
 /** @jsx h */
 import { h } from "preact";
+import { tw } from "@twind";
 
 export type EpisodeItem = {
   ["dc:creator"]: string;
@@ -35,7 +36,9 @@ export const EpisodeList = (props: {
   podcastName: string;
 }) => {
   return (
-    <div>
+    <div style={{
+      lineHeight: 2
+    }}>
       {props.episodeList.map((d) => {
         return (
           <div key={d.enclosure["@url"]}>
