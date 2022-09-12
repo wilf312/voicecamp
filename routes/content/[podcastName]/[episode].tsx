@@ -66,6 +66,7 @@ export default function GreetPage(
 
   return (
     <div
+      class={tw`grid sm:grid-cols-1 md:grid-cols-2`}
       style={imageUrl
         ? {
           backgroundImage: `url(${imageUrl})`,
@@ -124,10 +125,12 @@ export default function GreetPage(
           )}
         </div>
       </div>
-      <EpisodeList
-        episodeList={episodeList}
-        podcastName={podcastName}
-      />
+      <div style={{ height: `100vh`, overflowY: `scroll` }}>
+        <EpisodeList
+          episodeList={episodeList}
+          podcastName={podcastName}
+        />
+      </div>
     </div>
   );
 }
