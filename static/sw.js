@@ -8,6 +8,7 @@ self.addEventListener("fetch", (event) => {
     url.pathname.endsWith("jpeg") ||
     url.pathname.endsWith("jpg") ||
     url.pathname.endsWith("png") ||
+    url.pathname.endsWith("mp3") ||
     url.host.startWith("thumb.voicecamp.love")
   ) {
     event.respondWith(
