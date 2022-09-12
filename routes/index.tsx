@@ -2,6 +2,8 @@
 import { h } from "preact";
 import { tw } from "@twind";
 import { getEncodedUrl } from "../config.ts";
+import { Icon } from "../components/Icon.tsx";
+import { LogoText } from "../components/LogoText.tsx";
 
 export default function Home() {
   const a = getEncodedUrl();
@@ -11,11 +13,18 @@ export default function Home() {
       style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}
     >
       <div class={tw`grid grid-cols-3`}>
-        <h1 class="text-xl">
-          Voice Camp
+        <h1 class={tw`flex items-center gap-2 col-span-3`}>
+          <Icon type="logo" />
+          <div
+            style={{
+              translate: ` 0px 5px`,
+            }}
+          >
+            <LogoText color="#4B6968" />
+          </div>
         </h1>
-        <p class={tw`col-span-2`}>
-          <a href={`/form`}>add podcast form</a>
+        <p class={tw`col-span-3`} style={{ lineHeight: 2.5 }}>
+          <a href={`/form`}>ポッドキャストの登録</a>
         </p>
         {a.map((data) => {
           // urlのルールで #以降ページ内リンクとして認識されるのでハッシュを手動で変換する
