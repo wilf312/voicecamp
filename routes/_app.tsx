@@ -13,6 +13,16 @@ export default function App({ Component }: AppProps) {
       <Head>
         <title>VoiceCamp</title>
         <link rel="apple-touch-icon-precomposed" href="/logo.svg" />
+        <link
+          rel="shortcut icon"
+          href="https://voicecamp.love/logo.svg"
+          type="image/vnd.microsoft.icon"
+        />
+        <link
+          rel="icon"
+          href="https://voicecamp.love/logo.svg"
+          type="image/vnd.microsoft.icon"
+        />
       </Head>
       <body>
         <Component />
