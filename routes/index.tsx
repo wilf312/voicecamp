@@ -37,8 +37,15 @@ export default function Home() {
             >
               {/* <h2>{data.name}</h2> */}
               <img
+                style={{
+                  width: `100%`,
+                  height: `100%`,
+                  objectFit: `cover`,
+                }}
                 alt={data.name}
-                src={`https://thumb.voicecamp.love/api/${data.hashEncoded}`}
+                src={`https://thumb.voicecamp.love/api/${
+                  data.hashEncoded.replaceAll("#", "%23")
+                }`}
               />
             </a>
           );
