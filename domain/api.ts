@@ -4,7 +4,7 @@
  * @returns
  */
 export const getPodcast = (hashEncoded: string) => {
-  const url = `https://action-ten.vercel.app/${hashEncoded}.json`;
+  const url = `https://podcast.wilf.workers.dev/api/${hashEncoded}`;
 
   return fetch(url, {
     method: "GET",
