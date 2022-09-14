@@ -40,23 +40,7 @@ export default function GreetPage(
     return d.guid["#text"] === decodeURIComponent(guid);
   });
 
-  let imageUrl = ``;
-
-  if (episode && episode["itunes:image"]) {
-    imageUrl = episode["itunes:image"]["@href"];
-  } else if (podcastMaster && podcastMaster["itunes:image"]) {
-    imageUrl = podcastMaster["itunes:image"]["@href"];
-  } else if (episode?.["media:thumbnail"]?.["@url"] != null) {
-    imageUrl = episode["media:thumbnail"]["@url"];
-  } else if (episode?.["media:thumbnail"]?.["@href"] != null) {
-    imageUrl = episode["itunes:image"]["@href"];
-  } else if (podcastMaster && podcastMaster["media:thumbnail"]) {
-    imageUrl = podcastMaster["media:thumbnail"]["@url"];
-  } else if (podcastMaster && podcastMaster["image"]) {
-    imageUrl = podcastMaster["image"]["url"];
-  } else {
-    console.log("thumbnail is not found");
-  }
+  const imageUrl = `https://thumb.voicecamp.love/api/${podcastName}`;
 
   /**
    * windowサイズがmd768px以上ならエピソードリストを表示する
