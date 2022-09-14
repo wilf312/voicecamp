@@ -18,6 +18,7 @@ export default function Player(props: props) {
   const [duration, setDuration] = useState<string>("1");
   const [currentTime, setCurrentTime] = useState<number | null>(null);
   const [playbackRate, setPlaybackRate] = useState<number>(1);
+  const [hasVolume, setHasVolume] = useState<boolean>(true);
 
   /**
    * タイミング: プレイヤー再生時
@@ -163,6 +164,19 @@ export default function Player(props: props) {
           }}
         >
           {playbackRate}x
+        </div>
+        <div
+          onClick={() => {
+            setHasVolume((bool) => {
+              const newBool = !bool;
+              audioRef.current.volume = newBool ? 1 : 0;
+              return newBool;
+            });
+          }}
+        >
+          <Icon
+            type={hasVolume ? "volumeOn" : "volumeOff"}
+          />
         </div>
         {tweetUrl && (
           <a href={tweetUrl} target="_blank" rel="noreferrer">
