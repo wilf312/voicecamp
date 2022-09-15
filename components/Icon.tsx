@@ -24,7 +24,7 @@ export function Icon(props: {
           height="48"
           width="48"
         >
-          <path d="M28.25 38V10H36v28ZM12 38V10h7.75v28Z" />
+          <path d="M16 37.85v-28l22 14Zm3-14Zm0 8.55 13.45-8.55L19 15.3Z" />
         </svg>
       );
     }
@@ -36,7 +36,7 @@ export function Icon(props: {
           height="48"
           width="48"
         >
-          <path d="M16 37.85v-28l22 14Zm3-14Zm0 8.55 13.45-8.55L19 15.3Z" />
+          <path d="M28.25 38V10H36v28ZM12 38V10h7.75v28Z" />
         </svg>
       );
     }
