@@ -11,7 +11,6 @@ export default function App({ Component }: AppProps) {
   return (
     <html>
       <Head>
-        <title>VoiceCamp</title>
         <link rel="apple-touch-icon-precomposed" href="/logo.svg" />
         <link
           rel="shortcut icon"

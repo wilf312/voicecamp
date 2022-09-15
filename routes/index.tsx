@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
+import { Head } from "$fresh/runtime.ts";
 import { getEncodedUrl } from "../config.ts";
 import { Icon } from "../components/Icon.tsx";
 import { LogoText } from "../components/LogoText.tsx";
@@ -12,6 +13,9 @@ export default function Home() {
       class={tw`p-4 mx-auto max-w-screen-md`}
       style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.4" }}
     >
+      <Head>
+        <title>VoiceCamp</title>
+      </Head>
       <div class={tw`grid grid-cols-3`}>
         <h1 class={tw`flex items-center gap-2 col-span-3`}>
           <Icon type="logo" />

@@ -7,6 +7,7 @@ import type { EpisodeItem } from "../../../components/EpisodeList.tsx";
 import { EpisodeList } from "../../../components/EpisodeList.tsx";
 import Player from "../../../islands/Player.tsx";
 import { tw } from "@twind";
+import { Head } from "$fresh/src/runtime/head.ts";
 
 interface PageType {
   podcastMaster: GetPodcast;
@@ -42,6 +43,8 @@ export default function GreetPage(
 
   const imageUrl = `https://thumb.voicecamp.love/api/${podcastName}`;
 
+  const title = `${episode?.title} | ${podcastName} | Voice Camp`;
+
   /**
    * windowサイズがmd768px以上ならエピソードリストを表示する
    * windowサイズがmd768px未満なら
@@ -58,6 +61,9 @@ export default function GreetPage(
         }
         : {}}
     >
+      <Head>
+        <title>{title}</title>
+      </Head>
       <div
         class={tw`flex flex-col justify-between align-center`}
         style={{
