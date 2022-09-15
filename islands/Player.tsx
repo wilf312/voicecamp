@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "preact/hooks";
 import type { EpisodeItem } from "../components/EpisodeList.tsx";
 import { Icon } from "../components/Icon.tsx";
 import { tw } from "@twind";
-import { timeFormatShort } from "../domain/date.ts";
+import { usePlayer } from "../hook/usePlayer.tsx";
 
 type props = {
   src: string;
@@ -13,24 +13,11 @@ type props = {
   episode: EpisodeItem;
 };
 export default function Player(props: props) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
   const [tweetUrl, setTweetUrl] = useState<string>("");
-  const [duration, setDuration] = useState<string>("1");
-  const [currentTime, setCurrentTime] = useState<number | null>(null);
-  const [playbackRate, setPlaybackRate] = useState<number>(1);
-  const [hasVolume, setHasVolume] = useState<boolean>(true);
-
-  /**
-   * タイミング: プレイヤー再生時
-   * やること: URLに秒数を入れた状態にする ＋ 状態を更新する
-   */
-  const onTimeUpdate = () => {
-    const currentTime = audioRef.current?.currentTime;
-    if (currentTime) {
-      const _floored = Math.floor(currentTime);
-      setCurrentTime(_floored);
-
-      const url = `${location.pathname}${`?s=${_floored}`}`;
+  const player = usePlayer({
+    src: props.src,
+    onTimeUpdate: (currentTime) => {
+      const url = `${location.pathname}${`?s=${currentTime}`}`;
       // https://developer.mozilla.org/ja/docs/Web/API/History/replaceState
       history.replaceState(null, "", url);
 
@@ -50,38 +37,10 @@ export default function Player(props: props) {
         }${episodeNo} #ボイキャン\n`,
       );
       setTweetUrl(`https://twitter.com/intent/tweet?text=${text}`);
-    }
-  };
+    },
+  });
 
-  /**
-   * when: コンポーネント読み込み時srcをセットする
-   * action: queryの ?s=10 を parseして audioの現在の再生時間に10を設定する
-   */
-  useEffect(() => {
-    audioRef.current = new Audio();
-    audioRef.current.src = props.src;
-    audioRef.current.ontimeupdate = onTimeUpdate;
-    audioRef.current.playbackRate = playbackRate;
-
-    // queryから秒数を取り出して audioに適応する
-    const secondForLocationSearch =
-      new URL(location.href).searchParams.get("s") || "0";
-    audioRef.current.currentTime = parseInt(secondForLocationSearch, 10) || 0;
-
-    setCurrentTime(audioRef.current.currentTime);
-
-    // audioRef.current.onload = () => {
-    //   console.log("loaded");
-    // };
-  }, []);
-
-  const formattedCurrentTime = currentTime !== null
-    ? timeFormatShort(currentTime)
-    : "";
-  const formattedTimeLeft = currentTime !== null
-    ? timeFormatShort((audioRef.current?.duration || 0) - currentTime)
-    : "";
-
+  console.log({ player }, player.isPlaying);
   return (
     <div
       class={tw`mt-5`}
@@ -91,58 +50,41 @@ export default function Player(props: props) {
       }}
     >
       <input
-        onChange={(e) => {
-          if (e?.currentTarget?.value && audioRef.current?.currentTime) {
-            const num = ~~e?.currentTarget?.value;
-            audioRef.current.currentTime = num;
-          }
-        }}
+        onChange={player.onChange}
         class={tw`mx-5`}
         type="range"
         name="volume"
-        min="1"
-        max={audioRef.current?.duration || 1}
-        value={currentTime || 0}
+        min={player.range.min}
+        max={player.range.max}
+        value={player.currentTime}
       />
       <div class={tw`flex justify-between px-6   text-xs`}>
-        <div>{formattedCurrentTime}</div>
-        <div>{formattedTimeLeft}</div>
+        <div>{player.formattedCurrentTime}</div>
+        <div>{player.formattedTimeLeft}</div>
       </div>
 
       <div class={tw`flex justify-evenly py-2`}>
         <Icon
           type="back10sec"
-          onClick={() => {
-            console.log(`10秒戻る`);
-            audioRef.current.currentTime = audioRef.current.currentTime - 10;
-          }}
+          onClick={player.back10Sec}
         />
 
-        {audioRef.current?.paused && (
+        {player.isPlaying && (
           <Icon
             type="pause"
-            onClick={() => {
-              console.log(`再生`);
-              audioRef.current?.play();
-            }}
+            onClick={player.pause}
           />
         )}
-        {!audioRef.current?.paused && (
+        {!player.isPlaying && (
           <Icon
             type="play"
-            onClick={() => {
-              console.log(`停止`);
-              audioRef.current?.pause();
-            }}
+            onClick={player.play}
           />
         )}
 
         <Icon
           type="next10sec"
-          onClick={() => {
-            console.log(`10秒進む`);
-            audioRef.current.currentTime = audioRef.current.currentTime + 10;
-          }}
+          onClick={player.next10Sec}
         />
       </div>
 
@@ -150,32 +92,15 @@ export default function Player(props: props) {
         class={tw`flex justify-between pt-4 px-6`}
       >
         <div
-          onClick={() => {
-            console.log(`再生速度変更`);
-            const rateList = [1, 1.2, 1.5, 2, 0.7];
-            const index = rateList.findIndex((value) => {
-              return playbackRate === value;
-            });
-
-            const nextPlaybackRate =
-              rateList[index === rateList.length - 1 ? 0 : index + 1];
-            audioRef.current.playbackRate = nextPlaybackRate;
-            setPlaybackRate(nextPlaybackRate);
-          }}
+          onClick={player.speed.changeSpeed}
         >
-          {playbackRate}x
+          {player.speed.playbackRate}x
         </div>
         <div
-          onClick={() => {
-            setHasVolume((bool) => {
-              const newBool = !bool;
-              audioRef.current.volume = newBool ? 1 : 0;
-              return newBool;
-            });
-          }}
+          onClick={player.volume.mute}
         >
           <Icon
-            type={hasVolume ? "volumeOn" : "volumeOff"}
+            type={player.volume.hasVolume ? "volumeOn" : "volumeOff"}
           />
         </div>
         {tweetUrl && (
