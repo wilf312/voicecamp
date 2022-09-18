@@ -91,7 +91,7 @@ export default function Player(props: props) {
       </div>
 
       <div
-        class={tw`flex justify-between items-center pt-4 px-6`}
+        class={tw`flex justify-between items-center px-6`}
       >
         <div
           onClick={player.speed.changeSpeed}
