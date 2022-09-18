@@ -8,15 +8,15 @@ self.addEventListener("fetch", (event) => {
     url.pathname.endsWith("jpeg") ||
     url.pathname.endsWith("jpg") ||
     url.pathname.endsWith("png") ||
-    url.pathname.endsWith("mp3") ||
-    url.pathname.endsWith("m4a") ||
+    // url.pathname.endsWith("mp3") ||
+    // url.pathname.endsWith("m4a") ||
     url.host.startsWith("thumb.voicecamp.love")
   ) {
     event.respondWith(
       caches.open("assets").then(async (cache) => {
-        let cacheResponse = await cache.match(event.request);
+        const cacheResponse = await cache.match(event.request);
         if (cacheResponse) return cacheResponse;
-        let fetchResponse = await fetch(event.request);
+        const fetchResponse = await fetch(event.request);
         cache.put(event.request, fetchResponse.clone());
         return fetchResponse;
       }),
