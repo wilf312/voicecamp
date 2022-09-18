@@ -8,6 +8,7 @@ import { EpisodeList } from "../../../components/EpisodeList.tsx";
 import Player from "../../../islands/Player.tsx";
 import { tw } from "@twind";
 import { Head } from "$fresh/src/runtime/head.ts";
+import Menu from "../../../islands/Menu.tsx";
 
 interface PageType {
   podcastMaster: GetPodcast;
@@ -72,6 +73,10 @@ export default function GreetPage(
           backdropFilter: `blur(9px)`,
         }}
       >
+        {/* メニュー */}
+        <div class={tw`absolute container`}>
+          <Menu />
+        </div>
         {/* アートワーク */}
         <div
           class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}
