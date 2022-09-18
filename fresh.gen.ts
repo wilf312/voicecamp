@@ -10,7 +10,8 @@ import * as $3 from "./routes/content/[podcastName]/index.tsx";
 import * as $4 from "./routes/form.tsx";
 import * as $5 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
-import * as $$1 from "./islands/Player.tsx";
+import * as $$1 from "./islands/Menu.tsx";
+import * as $$2 from "./islands/Player.tsx";
 
 const manifest = {
   routes: {
@@ -23,7 +24,8 @@ const manifest = {
   },
   islands: {
     "./islands/Counter.tsx": $$0,
-    "./islands/Player.tsx": $$1,
+    "./islands/Menu.tsx": $$1,
+    "./islands/Player.tsx": $$2,
   },
   baseUrl: import.meta.url,
   config,
