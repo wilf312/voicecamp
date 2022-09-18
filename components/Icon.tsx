@@ -2,6 +2,7 @@
 import { h } from "preact";
 
 const Type = {
+  "switchAccessShortcut": "switchAccessShortcut",
   "home": "home",
   "menu": "menu",
   "volumeOn": "volumeOn",
@@ -15,12 +16,15 @@ const Type = {
 
 export function Icon(props: {
   type: keyof typeof Type;
+  size?: number;
   onClick?: () => void;
 }) {
+  const _size = props.size ? props.size : 1;
   switch (props.type) {
     case Type.play: {
       return (
         <svg
+          style={{ transform: `scale(${_size})` }}
           onClick={props.onClick}
           xmlns="http://www.w3.org/2000/svg"
           height="48"
@@ -33,6 +37,7 @@ export function Icon(props: {
     case Type.pause: {
       return (
         <svg
+          style={{ transform: `scale(${_size})` }}
           onClick={props.onClick}
           xmlns="http://www.w3.org/2000/svg"
           height="48"
@@ -45,6 +50,7 @@ export function Icon(props: {
     case Type.next10sec: {
       return (
         <svg
+          style={{ transform: `scale(${_size})` }}
           onClick={props.onClick}
           xmlns="http://www.w3.org/2000/svg"
           height="48"
@@ -57,6 +63,7 @@ export function Icon(props: {
     case Type.back10sec: {
       return (
         <svg
+          style={{ transform: `scale(${_size})` }}
           onClick={props.onClick}
           xmlns="http://www.w3.org/2000/svg"
           height="48"
@@ -70,6 +77,7 @@ export function Icon(props: {
     case Type.logo: {
       return (
         <svg
+          style={{ transform: `scale(${_size})` }}
           width="49"
           height="49"
           viewBox="0 0 49 49"
@@ -90,7 +98,12 @@ export function Icon(props: {
 
     case Type.volumeOff: {
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+        <svg
+          style={{ transform: `scale(${_size})` }}
+          xmlns="http://www.w3.org/2000/svg"
+          height="48"
+          width="48"
+        >
           <path d="m40.65 45.2-6.6-6.6q-1.4 1-3.025 1.725-1.625.725-3.375 1.125v-3.1q1.15-.35 2.225-.775 1.075-.425 2.025-1.125l-8.25-8.3V40l-10-10h-8V18h7.8l-11-11L4.6 4.85 42.8 43Zm-1.8-11.6-2.15-2.15q1-1.7 1.475-3.6.475-1.9.475-3.9 0-5.15-3-9.225-3-4.075-8-5.175v-3.1q6.2 1.4 10.1 6.275 3.9 4.875 3.9 11.225 0 2.55-.7 5t-2.1 4.65Zm-6.7-6.7-4.5-4.5v-6.5Q30 17 31.325 19.2q1.325 2.2 1.325 4.8 0 .75-.125 1.475-.125.725-.375 1.425Zm-8.5-8.5-5.2-5.2 5.2-5.2Zm-3 14.3v-7.5l-4.2-4.2h-7.8v6h6.3Zm-2.1-9.6Z" />
         </svg>
       );
@@ -98,7 +111,12 @@ export function Icon(props: {
 
     case Type.volumeOn: {
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+        <svg
+          style={{ transform: `scale(${_size})` }}
+          xmlns="http://www.w3.org/2000/svg"
+          height="48"
+          width="48"
+        >
           <path d="M28 41.45v-3.1q4.85-1.4 7.925-5.375T39 23.95q0-5.05-3.05-9.05-3.05-4-7.95-5.35v-3.1q6.2 1.4 10.1 6.275Q42 17.6 42 23.95t-3.9 11.225Q34.2 40.05 28 41.45ZM6 30V18h8L24 8v32L14 30Zm21 2.4V15.55q2.75.85 4.375 3.2T33 24q0 2.85-1.65 5.2T27 32.4Zm-6-16.8L15.35 21H9v6h6.35L21 32.45ZM16.3 24Z" />
         </svg>
       );
@@ -106,7 +124,12 @@ export function Icon(props: {
 
     case Type.menu: {
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+        <svg
+          style={{ transform: `scale(${_size})` }}
+          xmlns="http://www.w3.org/2000/svg"
+          height="48"
+          width="48"
+        >
           <path d="M6 36v-3h36v3Zm0-10.5v-3h36v3ZM6 15v-3h36v3Z" />
         </svg>
       );
@@ -114,8 +137,26 @@ export function Icon(props: {
 
     case Type.home: {
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+        <svg
+          style={{ transform: `scale(${_size})` }}
+          xmlns="http://www.w3.org/2000/svg"
+          height="48"
+          width="48"
+        >
           <path d="M8 42V18L24.1 6 40 18v24H28.3V27.75h-8.65V42Zm3-3h5.65V24.75H31.3V39H37V19.5L24.1 9.75 11 19.5Zm13-14.65Z" />
+        </svg>
+      );
+    }
+
+    case Type.switchAccessShortcut: {
+      return (
+        <svg
+          style={{ transform: `scale(${_size})` }}
+          xmlns="http://www.w3.org/2000/svg"
+          height="48"
+          width="48"
+        >
+          <path d="m9.65 29.65-1.15-2.5L6 26l2.5-1.15 1.15-2.5 1.15 2.5L13.3 26l-2.5 1.15ZM16 41.45l-1.75-3.7-3.7-1.75 3.7-1.75 1.75-3.7 1.75 3.7 3.7 1.75-3.7 1.75Zm0-20-1.75-3.7-3.7-1.75 3.7-1.75 1.75-3.7 1.75 3.7 3.7 1.75-3.7 1.75ZM38 44q-6.05-2.5-9.775-8.125Q24.5 30.25 24.5 24q0-4.55 2.175-9.05Q28.85 10.45 32.6 7h-8.4V4H38v13.8h-3V8.85q-3.45 3.1-5.475 7.175Q27.5 20.1 27.5 24q0 5.05 2.9 9.7 2.9 4.65 7.6 7Z" />
         </svg>
       );
     }
