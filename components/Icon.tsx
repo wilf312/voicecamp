@@ -2,6 +2,8 @@
 import { h } from "preact";
 
 const Type = {
+  "home": "home",
+  "menu": "menu",
   "volumeOn": "volumeOn",
   "volumeOff": "volumeOff",
   "logo": "logo",
@@ -98,6 +100,22 @@ export function Icon(props: {
       return (
         <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
           <path d="M28 41.45v-3.1q4.85-1.4 7.925-5.375T39 23.95q0-5.05-3.05-9.05-3.05-4-7.95-5.35v-3.1q6.2 1.4 10.1 6.275Q42 17.6 42 23.95t-3.9 11.225Q34.2 40.05 28 41.45ZM6 30V18h8L24 8v32L14 30Zm21 2.4V15.55q2.75.85 4.375 3.2T33 24q0 2.85-1.65 5.2T27 32.4Zm-6-16.8L15.35 21H9v6h6.35L21 32.45ZM16.3 24Z" />
+        </svg>
+      );
+    }
+
+    case Type.menu: {
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+          <path d="M6 36v-3h36v3Zm0-10.5v-3h36v3ZM6 15v-3h36v3Z" />
+        </svg>
+      );
+    }
+
+    case Type.home: {
+      return (
+        <svg xmlns="http://www.w3.org/2000/svg" height="48" width="48">
+          <path d="M8 42V18L24.1 6 40 18v24H28.3V27.75h-8.65V42Zm3-3h5.65V24.75H31.3V39H37V19.5L24.1 9.75 11 19.5Zm13-14.65Z" />
         </svg>
       );
     }
