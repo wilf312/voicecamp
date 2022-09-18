@@ -65,6 +65,7 @@ export default function Player(props: props) {
 
       <div class={tw`flex justify-evenly py-2`}>
         <Icon
+          size={0.55}
           type="back10sec"
           onClick={player.back10Sec}
         />
@@ -83,13 +84,14 @@ export default function Player(props: props) {
         )}
 
         <Icon
+          size={0.55}
           type="next10sec"
           onClick={player.next10Sec}
         />
       </div>
 
       <div
-        class={tw`flex justify-between pt-4 px-6`}
+        class={tw`flex justify-between items-center pt-4 px-6`}
       >
         <div
           onClick={player.speed.changeSpeed}
@@ -100,6 +102,7 @@ export default function Player(props: props) {
           onClick={player.volume.mute}
         >
           <Icon
+            size={0.55}
             type={player.volume.hasVolume ? "volumeOn" : "volumeOff"}
           />
         </div>
