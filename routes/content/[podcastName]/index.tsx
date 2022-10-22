@@ -25,9 +25,14 @@ export const handler: Handlers<GetPodcast | null> = {
 
     const newestEpisode = data.item[0];
 
-    const redirectURL = `${origin}/content/${ctx.params.podcastName}/${
-      encodeURIComponent(newestEpisode.guid["#text"])
-    }`;
+    // guid がテキストのみの場合はそのまま、object形式の場合は中身を取り出す
+    const guid = encodeURIComponent(
+      typeof newestEpisode.guid === "string"
+        ? newestEpisode.guid
+        : newestEpisode.guid["#text"],
+    );
+
+    const redirectURL = `${origin}/content/${ctx.params.podcastName}/${guid}`;
 
     return new Response("", {
       status: 303,
