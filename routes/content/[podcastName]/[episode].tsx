@@ -39,7 +39,8 @@ export default function GreetPage(
 ) {
   const episodeList = podcastMaster.item;
   const episode: EpisodeItem | null = episodeList.find((d: EpisodeItem) => {
-    return d.guid["#text"] === decodeURIComponent(guid);
+    const _guid = d.guid["#text"] || d.guid;
+    return _guid === decodeURIComponent(guid);
   });
 
   const imageUrl = `https://thumb.voicecamp.love/api/${podcastName}`;
@@ -126,6 +127,7 @@ export default function GreetPage(
         }}
       >
         <EpisodeList
+          currentGuid={episode?.guid["#text"] || ""}
           episodeList={episodeList}
           podcastName={podcastName}
         />
