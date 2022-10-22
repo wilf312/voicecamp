@@ -2,6 +2,7 @@
 import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
 import { getPodcast } from "../../../domain/api.ts";
+import { getGuid } from "../../../domain/episode.ts";
 import type { GetPodcast } from "../../../domain/api.ts";
 
 export const handler: Handlers<GetPodcast | null> = {
@@ -27,9 +28,7 @@ export const handler: Handlers<GetPodcast | null> = {
 
     // guid がテキストのみの場合はそのまま、object形式の場合は中身を取り出す
     const guid = encodeURIComponent(
-      typeof newestEpisode.guid === "string"
-        ? newestEpisode.guid
-        : newestEpisode.guid["#text"],
+      getGuid(newestEpisode),
     );
 
     const redirectURL = `${origin}/content/${ctx.params.podcastName}/${guid}`;

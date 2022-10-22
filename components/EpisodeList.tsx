@@ -1,6 +1,7 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
+import { getGuid } from '../domain/episode.ts'
 
 export type EpisodeItem = {
   ["dc:creator"]: string;
@@ -10,7 +11,7 @@ export type EpisodeItem = {
     ["@type"]: string;
     ["@url"]: string;
   };
-  guid: {
+  guid: string | {
     ["#text"]: string;
   };
   ["media:thumbnail"]: {
@@ -32,20 +33,26 @@ export type EpisodeItem = {
 };
 
 export const EpisodeList = (props: {
+  currentGuid: string;
   episodeList: EpisodeItem[];
   podcastName: string;
 }) => {
   return (
-    <div style={{
-      lineHeight: 2
-    }}>
+    <div
+      style={{
+        lineHeight: 2,
+      }}
+    >
       {props.episodeList.map((d) => {
+        const guid = getGuid(d)
         return (
-          <div key={d.enclosure["@url"]}>
+          <div class={tw`flex`} key={d.enclosure["@url"]}>
+            {guid === props.currentGuid &&
+              <div>再生中</div>}
             <a
               href={`/content/${props.podcastName}/${
                 encodeURIComponent(
-                  d.guid["#text"],
+                  guid,
                 )
               }`}
             >

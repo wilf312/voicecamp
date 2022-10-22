@@ -9,6 +9,7 @@ import Player from "../../../islands/Player.tsx";
 import { tw } from "@twind";
 import { Head } from "$fresh/src/runtime/head.ts";
 import Menu from "../../../islands/Menu.tsx";
+import { getGuid } from "../../../domain/episode.ts";
 
 interface PageType {
   podcastMaster: GetPodcast;
@@ -39,7 +40,7 @@ export default function GreetPage(
 ) {
   const episodeList = podcastMaster.item;
   const episode: EpisodeItem | null = episodeList.find((d: EpisodeItem) => {
-    const _guid = d.guid["#text"] || d.guid;
+    const _guid = getGuid(d);
     return _guid === decodeURIComponent(guid);
   });
 
@@ -127,7 +128,7 @@ export default function GreetPage(
         }}
       >
         <EpisodeList
-          currentGuid={episode?.guid["#text"] || ""}
+          currentGuid={episode ? getGuid(episode) : ""}
           episodeList={episodeList}
           podcastName={podcastName}
         />
