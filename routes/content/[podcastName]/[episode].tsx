@@ -46,7 +46,9 @@ export default function GreetPage(
 
   const imageUrl = `https://thumb.voicecamp.love/api/${podcastName}`;
 
-  const title = `${episode?.title} | ${podcastName} | Voice Camp`;
+  const title = `${episode?.title} | ${
+    decodeURIComponent(podcastName)
+  } | Voice Camp`;
 
   /**
    * windowサイズがmd768px以上ならエピソードリストを表示する
