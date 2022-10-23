@@ -4,7 +4,6 @@ import { h } from "preact";
 export const LogoText = (
   { color }: { color?: string } = { color: "#4B6968" },
 ) => {
-  console.log({ color });
   const w = 306 * 0.5;
   const h = 55 * 0.5;
   return (

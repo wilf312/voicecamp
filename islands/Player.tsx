@@ -40,7 +40,6 @@ export default function Player(props: props) {
     },
   });
 
-  console.log({ player }, player.isPlaying);
   return (
     <div
       class={tw`mt-5`}

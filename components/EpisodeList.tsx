@@ -1,7 +1,7 @@
 /** @jsx h */
 import { h } from "preact";
 import { tw } from "@twind";
-import { getGuid } from '../domain/episode.ts'
+import { getGuid } from "../domain/episode.ts";
 
 export type EpisodeItem = {
   ["dc:creator"]: string;
@@ -44,7 +44,10 @@ export const EpisodeList = (props: {
       }}
     >
       {props.episodeList.map((d) => {
-        const guid = getGuid(d)
+        if (d?.enclosure == null) {
+          return;
+        }
+        const guid = getGuid(d);
         return (
           <div class={tw`flex`} key={d.enclosure["@url"]}>
             {guid === props.currentGuid &&
