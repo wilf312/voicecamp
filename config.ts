@@ -109,7 +109,7 @@ export const urlList: UrlListItem[] = [
 
   {
     name: "ALL STAR SAAS PODCAST",
-    hash: "#allstarsaas",
+    hash: "allstarsaas",
     url: "https://anchor.fm/s/4960aa9c/podcast/rss",
   },
 
@@ -434,7 +434,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "nextstep.fm",
     hash: "nextstepfm",
-    url: "https://nextstep.fm/feed.xml",
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:281879883/sounds.rss",
   },
 
   {
@@ -494,7 +494,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "dex.fm",
     hash: "dexfm",
-    url: "https://dex.fm/rss",
+    url: "https://dexfm.tumblr.com/rss",
   },
 
   {
