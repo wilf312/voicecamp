@@ -34,7 +34,7 @@ export default function Player(props: props) {
       const text = encodeURIComponent(
         `${props.episode.title} ${href} #${
           decodeURIComponent(props.hash)
-        }${episodeNo} #ボイキャン\n`,
+        } #ボイキャン ${episodeNo}\n`,
       );
       setTweetUrl(`https://twitter.com/intent/tweet?text=${text}`);
     },
