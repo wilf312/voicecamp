@@ -27,14 +27,15 @@ export default function Player(props: props) {
       }
       href = window.location.href;
 
+      // TODO: phpの現場とyokohamanortham だけでep番号つける
       const episodeNo = props.episode["itunes:episode"]
         ? `.${props.episode["itunes:episode"]}`
         : "";
 
       const text = encodeURIComponent(
-        `${props.episode.title} ${href} #${
+        `${props.episode.title} ${href} #ボイキャン #${
           decodeURIComponent(props.hash)
-        } #ボイキャン ${episodeNo}\n`,
+        }${episodeNo}\n`,
       );
       setTweetUrl(`https://twitter.com/intent/tweet?text=${text}`);
     },
