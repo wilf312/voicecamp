@@ -42,6 +42,8 @@ export default function Home() {
               {/* <h2>{data.name}</h2> */}
               <img
                 style={{
+                  minWidth: `100px`,
+                  minHeight: `100px`,
                   width: `100%`,
                   height: `100%`,
                   objectFit: `cover`,
