@@ -6,6 +6,22 @@ import { Icon } from "../components/Icon.tsx";
 import { tw } from "@twind";
 import { usePlayer } from "../hook/usePlayer.tsx";
 
+const generateTwitterText = (
+  episode: EpisodeItem,
+  hash: string,
+  url: string,
+) => {
+  // TODO: phpの現場とyokohamanortham だけでep番号つける
+  const episodeNo = episode["itunes:episode"]
+    ? `.${episode["itunes:episode"]}`
+    : "";
+
+  const text = encodeURIComponent(
+    `${episode.title} ${url} #ボイキャン #${decodeURIComponent(hash)}${episodeNo}\n`,
+  );
+  return `https://twitter.com/intent/tweet?text=${text}`;
+};
+
 type props = {
   src: string;
   hash: string;
@@ -21,25 +37,30 @@ export default function Player(props: props) {
       // https://developer.mozilla.org/ja/docs/Web/API/History/replaceState
       history.replaceState(null, "", url);
 
-      let href = "";
       if (!window.location) {
         return "";
       }
-      href = window.location.href;
 
-      // TODO: phpの現場とyokohamanortham だけでep番号つける
-      const episodeNo = props.episode["itunes:episode"]
-        ? `.${props.episode["itunes:episode"]}`
-        : "";
-
-      const text = encodeURIComponent(
-        `${props.episode.title} ${href} #ボイキャン #${
-          decodeURIComponent(props.hash)
-        }${episodeNo}\n`,
+      const twitterUrl = generateTwitterText(
+        props.episode,
+        props.hash,
+        window.location.href,
       );
-      setTweetUrl(`https://twitter.com/intent/tweet?text=${text}`);
+      setTweetUrl(twitterUrl);
     },
   });
+  /**
+   * タイミング: ページ読み込み時
+   * 目的: ページ読み込み時に引用ボタンを表示する（再生しなくてもシェアできる）
+   */
+  useEffect(() => {
+    const twitterUrl = generateTwitterText(
+      props.episode,
+      props.hash,
+      window.location.href,
+    );
+    setTweetUrl(twitterUrl);
+  }, []);
 
   return (
     <div
