@@ -110,7 +110,7 @@ export const usePlayer = (props: props) => {
       playbackRate,
       changeSpeed: () => {
         console.log(`再生速度変更`);
-        const rateList = [1, 1.2, 1.5, 2, 0.7];
+        const rateList = [1, 1.2, 1.5, 2, 3, 0.7];
         const index = rateList.findIndex((value) => {
           return playbackRate === value;
         });
