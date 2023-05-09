@@ -14,6 +14,9 @@ const isCacheOld = (cacheDate: Date, now: Date = new Date()) => {
   //   "cacheDate": cacheDate,
   // });
 
+  console.log(`now`, now);
+  console.log(`setsecond`, now.setSeconds(now.getSeconds() - cacheTime));
+
   return (new Date(now.setSeconds(now.getSeconds() - cacheTime))) < cacheDate;
 };
 
