@@ -1,5 +1,4 @@
 import { HandlerContext } from "$fresh/server.ts";
-import dateFns from "npm:date-fns@2.30.0";
 
 const url = `https://action-ten.vercel.app/url_list.json`;
 
@@ -14,7 +13,8 @@ const isCacheOld = (cacheDate: Date, now: Date = new Date()) => {
   //   "5sec": dateFns.subSeconds(now, cacheTime),
   //   "cacheDate": cacheDate,
   // });
-  return dateFns.subSeconds(now, cacheTime) < cacheDate;
+
+  return (new Date(now.setSeconds(now.getSeconds() - cacheTime))) < cacheDate;
 };
 
 export const handler = async (
