@@ -34,7 +34,7 @@ export const handler = async (
     const data = [];
     for await (const res of iter) data.push(res);
 
-    const _isCacheOld = isCacheOld(new Date(data[0].key[2]));
+    const _isCacheOld = data.length > 1 && isCacheOld(new Date(data[0].key[2]));
     console.log({ _isCacheOld });
 
     // キャッシュを引く
