@@ -7,7 +7,7 @@ const meaningIsPodcast = `podcast`;
 
 const isCacheOld = (cacheDate: Date, now: Date = new Date()) => {
   // const cacheTime = 60 * 60; // 1時間
-  const cacheTime = 5; // 5min
+  const cacheTime = 60; // 60sec
   // console.log({
   //   "now": now,
   //   "5sec": dateFns.subSeconds(now, cacheTime),
