@@ -49,9 +49,7 @@ export default function Home() {
                   objectFit: `cover`,
                 }}
                 alt={data.name}
-                src={`https://thumb.voicecamp.love/api/${
-                  data.hashEncoded.replaceAll("#", "%23")
-                }`}
+                src={`/api/image?s=${data.hashEncoded.replaceAll("#", "%23")}`}
               />
             </a>
           );
