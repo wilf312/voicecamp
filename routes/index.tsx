@@ -2,6 +2,7 @@
 import { h } from "preact";
 import { tw } from "@twind";
 import { Head } from "$fresh/runtime.ts";
+import Image from "../islands/Image.tsx";
 import { getEncodedUrl } from "../config.ts";
 import { Icon } from "../components/Icon.tsx";
 import { LogoText } from "../components/LogoText.tsx";
@@ -40,16 +41,9 @@ export default function Home() {
               class={tw`flex-basis`}
             >
               {/* <h2>{data.name}</h2> */}
-              <img
-                style={{
-                  minWidth: `100px`,
-                  minHeight: `100px`,
-                  width: `100%`,
-                  height: `100%`,
-                  objectFit: `cover`,
-                }}
+              <Image
                 alt={data.name}
-                src={`https://thumb.voicecamp.love/api/${
+                src={`/api/image?hash=${
                   data.hashEncoded.replaceAll("#", "%23")
                 }`}
               />
