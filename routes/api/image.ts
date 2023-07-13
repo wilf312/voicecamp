@@ -1,9 +1,7 @@
 import { HandlerContext } from "$fresh/server.ts";
-
-const url = `https://action-ten.vercel.app/url_list.json`;
+import { getImageSize, getImageUrl, modifyImage } from "./_imagick.ts";
 
 const prefix = `image`;
-const meaningIsPodcast = `podcast`;
 
 const isCacheOld = (cacheDate: Date, now: Date = new Date()) => {
   const cacheTime = 60 * 60; // 1時間
@@ -20,37 +18,16 @@ const isCacheOld = (cacheDate: Date, now: Date = new Date()) => {
   return (new Date(now.setSeconds(now.getSeconds() - cacheTime))) < cacheDate;
 };
 
-const getImageUrl = (podcast: any) => {
-  if (podcast["image"] && podcast["image"]["url"]) {
-    console.log("aa");
-    return podcast["image"]["url"];
-  } else if (podcast["itunes:image"]) {
-    console.log("a");
-    return podcast["itunes:image"]["@href"];
-  } else if (podcast["media:thumbnail"]) {
-    console.log("b");
-    return podcast["media:thumbnail"]["@url"];
-  } else if (podcast["image"]) {
-    console.log("c");
-    return podcast["image"]["url"];
-    // } else if (podcast.item[0] && podcast.item[0]["itunes:image"]) {
-    //   imageUrl = podcast.item[0]["itunes:image"]["@href"];
-    // } else if (podcast.item[0]["media:thumbnail"]["@url"] != null) {
-    //   imageUrl = podcast.item[0]["media:thumbnail"]["@url"];
-    // } else if (podcast.item[0]["media:thumbnail"]["@href"] != null) {
-    //   imageUrl = podcast.item[0]["itunes:image"]["@href"];
-  } else {
-    console.log("thumbnail is not found", podcast);
-    return ``;
-  }
-};
-
 export const handler = async (
   _req: Request,
   _ctx: HandlerContext,
 ): Response => {
+  const url = new URL(_req.url);
+  const searchParams = new URLSearchParams(url.search);
+  const hash = searchParams.get(`hash`);
+  const nocache = searchParams.get(`nocache`);
   const method = _req.method.toLowerCase();
-  if (method !== `get`) {
+  if (method !== `get` || hash == null) {
     return new Response(
       JSON.stringify({
         success: false,
@@ -64,13 +41,41 @@ export const handler = async (
   const kv = await Deno.openKv();
 
   // TODO: キャッシュがあるか確認する
+
+  const imageText = await kv.get(
+    [prefix, hash],
+  );
+  if (!nocache && imageText && imageText.value) {
+    console.log(
+      `cache hit!`,
+      imageText.key,
+      imageText.value.length,
+      typeof imageText.value,
+      prefix,
+      hash,
+    );
+    // 画像のtextをuint8arrayに変換する
+    const imageBuffer = new Uint8Array(imageText.value);
+
+    return new Response(imageBuffer, {
+      status: 200,
+      headers: {
+        "content-type": "image/avif",
+      },
+    });
+  }
   // TODO: あればキャッシュを返す
   // TODO: なかったら取得処理を行う
+
+  console.log({ hash });
 
   // TODO: hashからpodcastのjsonを取得する
   // JSONから画像のURLを取得する
   // fetch(`https://action-ten.vercel.app/${aaaa}.json`)
-  const r = await fetch(`https://action-ten.vercel.app/arkbfm.json`);
+  const r = await fetch(
+    `https://action-ten.vercel.app/${encodeURI(hash)}.json`,
+  );
+
   const json = await r.json();
   // 画像を取得する
   const imageUrl = getImageUrl(json) ||
@@ -80,17 +85,31 @@ export const handler = async (
 
   const rr = await fetch(imageUrl);
   const image = await rr.arrayBuffer();
+  const imageBuffer = new Uint8Array(image);
+  // 圧縮する
+  const compressedImage = await modifyImage(imageBuffer);
+  const compressedImage2 = compressedImage.copyWithin();
 
-  return new Response(new Uint8Array(image), {
+  // console.log({
+  //   compressedImage2,
+  //   compressedImage2length: compressedImage2.length,
+  //   prefix,
+  //   hash,
+  // });
+
+  // 圧縮した画像をキャッシュする
+  await kv.set(
+    [prefix, hash],
+    compressedImage2,
+  );
+
+  // 画像を返す
+  return new Response(compressedImage, {
     status: 200,
     headers: {
-      "content-type": "image/png",
+      "content-type": "image/avif",
     },
   });
-
-  // TODO: 圧縮する
-  // TODO: 圧縮した画像をキャッシュする
-  // TODO: 画像を返す
 
   // // キャッシュから取るか判定する
   // const iter = await kv.list(
