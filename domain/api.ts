@@ -15,8 +15,9 @@ export const getPodcast = (hashEncoded: string) => {
  * 新規エピソードのポッドキャストを取得 のデータの取得API
  * @returns
  */
+export type NewItem = { hash: string; latestId: string };
 export const getNewPodcast = () => {
-  const url = `https://action-ten.vercel.app/new_podcast.json`;
+  const url = `https://action-ten.vercel.app/new_list.json`;
   return fetch(url, {
     method: "GET",
   });
