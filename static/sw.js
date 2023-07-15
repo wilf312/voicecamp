@@ -10,7 +10,7 @@ self.addEventListener("fetch", (event) => {
     url.pathname.endsWith("png") ||
     // url.pathname.endsWith("mp3") ||
     // url.pathname.endsWith("m4a") ||
-    url.host.startsWith("thumb.voicecamp.love")
+    url.host.startsWith("kind-cod-19.deno.dev")
   ) {
     event.respondWith(
       caches.open("assets").then(async (cache) => {
