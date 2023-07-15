@@ -16,8 +16,17 @@ test("詳細ページの確認", async ({ page }) => {
     let name = urlList[i].name;
     await page.goto(`${domain}`);
     await page.getByRole("link", { name }).click();
-    await page.getByRole("heading", { name }).click();
+    await page.getByRole("heading", { name, level: 2 }).click();
     await page.locator("span").getByRole("img").click();
     await page.getByRole("link", { name: "トップへ戻る" }).click();
   }
+});
+
+test("確認中", async ({ page }) => {
+  let name = `EM . FM #EMFM`;
+  await page.goto(`${domain}`);
+  await page.getByRole("link", { name }).click();
+  await page.getByRole("heading", { name, level: 2 }).click();
+  await page.locator("span").getByRole("img").click();
+  await page.getByRole("link", { name: "トップへ戻る" }).click();
 });
