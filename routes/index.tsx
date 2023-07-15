@@ -5,6 +5,7 @@ import { Head } from "$fresh/runtime.ts";
 import { getEncodedUrl } from "../config.ts";
 import { Icon } from "../components/Icon.tsx";
 import { LogoText } from "../components/LogoText.tsx";
+import { THUMB_URL } from "../domain/image.ts";
 
 export default function Home() {
   const a = getEncodedUrl();
@@ -49,9 +50,7 @@ export default function Home() {
                   objectFit: `cover`,
                 }}
                 alt={data.name}
-                src={`https://kind-cod-19.deno.dev/${
-                  data.hashEncoded.replaceAll("#", "%23")
-                }`}
+                src={`${THUMB_URL}${data.hashEncoded.replaceAll("#", "%23")}`}
               />
             </a>
           );
