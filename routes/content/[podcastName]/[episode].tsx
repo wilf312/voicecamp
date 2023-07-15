@@ -44,7 +44,7 @@ export default function GreetPage(
     return _guid === decodeURIComponent(guid);
   });
 
-  const imageUrl = `https://kind-cod-19.deno.dev/${podcastName}`;
+  const imageUrl = `https://thumb.voicecamp.love/api/${podcastName}`;
 
   const title = `${episode?.title} | ${
     decodeURIComponent(podcastName)
@@ -96,7 +96,7 @@ export default function GreetPage(
                 maxHeight: `16rem`,
                 boxShadow: `3px 3px 8px 1px grey;`,
               }}
-              src={`https://kind-cod-19.deno.dev/${podcastName}`}
+              src={`https://thumb.voicecamp.love/api/${podcastName}`}
             />
           )}
         </div>
