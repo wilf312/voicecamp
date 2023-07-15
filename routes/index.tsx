@@ -49,7 +49,7 @@ export default function Home() {
                   objectFit: `cover`,
                 }}
                 alt={data.name}
-                src={`https://thumb.voicecamp.love/api/${
+                src={`https://kind-cod-19.deno.dev/${
                   data.hashEncoded.replaceAll("#", "%23")
                 }`}
               />
