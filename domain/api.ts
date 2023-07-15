@@ -11,6 +11,16 @@ export const getPodcast = (hashEncoded: string) => {
   });
 };
 
+/**
+ * 新規エピソードのポッドキャストを取得 のデータの取得API
+ * @returns
+ */
+export const getNewPodcast = () => {
+  const url = `https://action-ten.vercel.app/new_podcast.json`;
+  return fetch(url, {
+    method: "GET",
+  });
+};
 
 export interface GetPodcast {
   title: string;
@@ -18,17 +28,17 @@ export interface GetPodcast {
   link: string;
   image: Image;
   generator: string;
-  'atom:link': Atomlink[];
+  "atom:link": Atomlink[];
   author: string;
   copyright: string;
   language: string;
-  'itunes:author': string;
-  'itunes:summary': string;
-  'itunes:type': string;
-  'itunes:owner': Itunesowner;
-  'itunes:explicit': string;
-  'itunes:category': Itunescategory2;
-  'itunes:image': Itunesimage;
+  "itunes:author": string;
+  "itunes:summary": string;
+  "itunes:type": string;
+  "itunes:owner": Itunesowner;
+  "itunes:explicit": string;
+  "itunes:category": Itunescategory2;
+  "itunes:image": Itunesimage;
   item: Item[];
 }
 
@@ -37,55 +47,55 @@ interface Item {
   description: string;
   link: string;
   guid: Guid;
-  'dc:creator': string;
+  "dc:creator": string;
   pubDate: string;
   enclosure: Enclosure;
-  'itunes:summary': string;
-  'itunes:explicit': string;
-  'itunes:duration': string;
-  'itunes:image': Itunesimage;
-  'itunes:season': number;
-  'itunes:episode': number;
-  'itunes:episodeType': string;
+  "itunes:summary": string;
+  "itunes:explicit": string;
+  "itunes:duration": string;
+  "itunes:image": Itunesimage;
+  "itunes:season": number;
+  "itunes:episode": number;
+  "itunes:episodeType": string;
 }
 
 interface Enclosure {
-  '@url': string;
-  '@length': number;
-  '@type': string;
-  '#text'?: any;
+  "@url": string;
+  "@length": number;
+  "@type": string;
+  "#text"?: any;
 }
 
 interface Guid {
-  '@isPermaLink': boolean;
-  '#text': string;
+  "@isPermaLink": boolean;
+  "#text": string;
 }
 
 interface Itunesimage {
-  '@href': string;
-  '#text'?: any;
+  "@href": string;
+  "#text"?: any;
 }
 
 interface Itunescategory2 {
-  '@text': string;
-  'itunes:category': Itunescategory;
+  "@text": string;
+  "itunes:category": Itunescategory;
 }
 
 interface Itunescategory {
-  '@text': string;
-  '#text'?: any;
+  "@text": string;
+  "#text"?: any;
 }
 
 interface Itunesowner {
-  'itunes:name': string;
-  'itunes:email': string;
+  "itunes:name": string;
+  "itunes:email": string;
 }
 
 interface Atomlink {
-  '@href': string;
-  '@rel': string;
-  '@type'?: string;
-  '#text'?: any;
+  "@href": string;
+  "@rel": string;
+  "@type"?: string;
+  "#text"?: any;
 }
 
 interface Image {
