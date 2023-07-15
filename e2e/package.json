@@ -1,0 +1,17 @@
+{
+  "name": "e2e",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "local": "npx playwright test --ui",
+    "voicecamp": "npx playwright test --ui",
+    "codegen": "npx playwright codegen voicecamp.love"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "1.36.1"
+  }
+}
