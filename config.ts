@@ -430,13 +430,13 @@ export const urlList: UrlListItem[] = [
   },
 
   {
-    name: "“MOOK STUDY”日本の歴史（ムックスタディー 日本の歴史）",
+    name: "MOOKSTUDY”日本の歴史（ムックスタディー 日本の歴史）",
     hash: "MOOKSTUDY日本の歴史",
     url: "https://mookstudy1.mookmookradio.com/feed/",
   },
 
   {
-    name: "狭くて浅いやつら 漫画（マンガ）・ゲーム・映画・アニメの感想",
+    name: "狭くて浅いやつら",
     hash: "狭浅",
     url: "https://semaasa.net/feed/podcast",
   },
