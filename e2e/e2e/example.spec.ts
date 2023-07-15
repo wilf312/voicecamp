@@ -1,18 +1,23 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from "@playwright/test";
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+import { urlList } from "../../config";
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
+const domain = process.env.DOMAIN ?? `https://voicecamp.love`;
+console.log(`domain`, domain);
+
+test("登録フォームの確認", async ({ page }) => {
+  await page.goto(`${domain}`);
+  await page.getByRole("link", { name: "ポッドキャストの登録" }).click();
+  await page.goto(`${domain}`);
 });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects the URL to contain intro.
-  await expect(page).toHaveURL(/.*intro/);
+test("詳細ページの確認", async ({ page }) => {
+  for (let i = urlList.length - 1; i >= 0; i--) {
+    let name = urlList[i].name;
+    await page.goto(`${domain}`);
+    await page.getByRole("link", { name }).click();
+    await page.getByRole("heading", { name }).click();
+    await page.locator("span").getByRole("img").click();
+    await page.getByRole("link", { name: "トップへ戻る" }).click();
+  }
 });
