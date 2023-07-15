@@ -6,6 +6,15 @@ import { getEncodedUrl } from "../config.ts";
 import { Icon } from "../components/Icon.tsx";
 import { LogoText } from "../components/LogoText.tsx";
 import { THUMB_URL } from "../domain/image.ts";
+import { HandlerContext, Handlers } from "$fresh/server.ts";
+
+export const handler: Handlers = {
+  async GET(_req: Request, ctx: HandlerContext) {
+    const resp = await ctx.render();
+    resp.headers.set("X-podcast-listener", "Hello Listener!");
+    return resp;
+  },
+};
 
 export default function Home() {
   const a = getEncodedUrl();
