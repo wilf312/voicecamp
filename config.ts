@@ -8,7 +8,7 @@ export type UrlListItemAndHashEncoded = UrlListItem & { hashEncoded: string };
 
 export const urlList: UrlListItem[] = [
   {
-    name: "あらB.fm",
+    name: "あらBfm",
     hash: "arkbfm",
     url: "https://anchor.fm/s/319a2820/podcast/rss",
   },
@@ -26,8 +26,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "朝日新聞　ニュースの現場から",
     hash: "ニュースの現場から",
-    url:
-      "https://www.omnycontent.com/d/playlist/1e3bd144-9b57-451a-93cf-ac0e00e74446/50382bb4-3af3-4250-8ddc-ac0f0033ceb5/684015f9-2396-4ac4-bc1f-ac0f0033d08c/podcast.rss",
+    url: "https://www.omnycontent.com/d/playlist/1e3bd144-9b57-451a-93cf-ac0e00e74446/50382bb4-3af3-4250-8ddc-ac0f0033ceb5/684015f9-2396-4ac4-bc1f-ac0f0033d08c/podcast.rss",
   },
 
   {
@@ -46,6 +45,12 @@ export const urlList: UrlListItem[] = [
     name: "ほっとテック",
     hash: "ほっとテック",
     url: "https://anchor.fm/s/86693634/podcast/rss",
+  },
+
+  {
+    name: "ゆるテク",
+    hash: "yurutech",
+    url: "https://anchor.fm/s/adf8dcb8/podcast/rss",
   },
 
   {
@@ -303,15 +308,13 @@ export const urlList: UrlListItem[] = [
   {
     name: "中村繪里子・吉田尚記の本格雑談くちをひらく",
     hash: "くちをひらく",
-    url:
-      "https://www.omnycontent.com/d/playlist/67122501-9b17-4d77-84bd-a93d00dc791e/bf2b4e95-c669-4e1c-abcf-a98c00a5f513/b923e360-dc05-438d-be85-a98c00a5f517/podcast.rss",
+    url: "https://www.omnycontent.com/d/playlist/67122501-9b17-4d77-84bd-a93d00dc791e/bf2b4e95-c669-4e1c-abcf-a98c00a5f513/b923e360-dc05-438d-be85-a98c00a5f517/podcast.rss",
   },
 
   {
     name: "楽しいラジオ「ドングリFM」",
     hash: "ドングリFM",
-    url:
-      "http://feeds.soundcloud.com/users/soundcloud:users:170031062/sounds.rss",
+    url: "http://feeds.soundcloud.com/users/soundcloud:users:170031062/sounds.rss",
   },
 
   {
@@ -395,8 +398,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "nextstep.fm",
     hash: "nextstepfm",
-    url:
-      "https://feeds.soundcloud.com/users/soundcloud:users:281879883/sounds.rss",
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:281879883/sounds.rss",
   },
 
   {
@@ -430,13 +432,13 @@ export const urlList: UrlListItem[] = [
   },
 
   {
-    name: "MOOKSTUDY”日本の歴史（ムックスタディー 日本の歴史）",
+    name: "“MOOK STUDY”日本の歴史（ムックスタディー 日本の歴史）",
     hash: "MOOKSTUDY日本の歴史",
     url: "https://mookstudy1.mookmookradio.com/feed/",
   },
 
   {
-    name: "狭くて浅いやつら",
+    name: "狭くて浅いやつら 漫画（マンガ）・ゲーム・映画・アニメの感想",
     hash: "狭浅",
     url: "https://semaasa.net/feed/podcast",
   },
@@ -462,15 +464,13 @@ export const urlList: UrlListItem[] = [
   {
     name: "engineer meeting podcast",
     hash: "engineermeetingpodcast",
-    url:
-      "https://feeds.soundcloud.com/users/soundcloud:users:117239062/sounds.rss",
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:117239062/sounds.rss",
   },
 
   {
     name: "しがないラジオ",
     hash: "しがないラジオ",
-    url:
-      "https://feeds.soundcloud.com/users/soundcloud:users:294673416/sounds.rss",
+    url: "https://feeds.soundcloud.com/users/soundcloud:users:294673416/sounds.rss",
   },
 
   {
@@ -482,8 +482,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "MEDIA TALK メディアトーク",
     hash: "MEDIATALK",
-    url:
-      "https://www.omnycontent.com/d/playlist/1e3bd144-9b57-451a-93cf-ac0e00e74446/50382bb4-3af3-4250-8ddc-ac0f0033ceb5/07a1de49-67cf-4714-8581-ac1000059302/podcast.rss",
+    url: "https://www.omnycontent.com/d/playlist/1e3bd144-9b57-451a-93cf-ac0e00e74446/50382bb4-3af3-4250-8ddc-ac0f0033ceb5/07a1de49-67cf-4714-8581-ac1000059302/podcast.rss",
   },
 
   {
@@ -513,8 +512,7 @@ export const urlList: UrlListItem[] = [
   {
     name: "新聞1面じゃなくても大事なこと -SDGsを話そう-",
     hash: "新聞1面じゃなくても大事なこと",
-    url:
-      "https://www.omnycontent.com/d/playlist/1e3bd144-9b57-451a-93cf-ac0e00e74446/50382bb4-3af3-4250-8ddc-ac0f0033ceb5/693cfdd6-f5a9-4308-9025-adb10164b5b1/podcast.rss",
+    url: "https://www.omnycontent.com/d/playlist/1e3bd144-9b57-451a-93cf-ac0e00e74446/50382bb4-3af3-4250-8ddc-ac0f0033ceb5/693cfdd6-f5a9-4308-9025-adb10164b5b1/podcast.rss",
   },
 
   {
@@ -544,6 +542,7 @@ export const urlList: UrlListItem[] = [
     hash: "tcfm",
     url: "https://feeds.turingcomplete.fm/tcfm",
   },
+
   // TODO: サムネが取れない
   // {
   //   name: "J-WAVE TOPPAN INNOVATION WORLD ERA",
@@ -583,7 +582,7 @@ export const getEncodedUrl = (): UrlListItemAndHashEncoded[] => {
 };
 
 export const findPodcastConfig = (
-  hashEncoded: string,
+  hashEncoded: string
 ): UrlListItemAndHashEncoded | undefined => {
   const urlListItemAndHashEncodedList = getEncodedUrl();
   return urlListItemAndHashEncodedList.find((d) => {
