@@ -7,6 +7,7 @@ import { Icon } from "../components/Icon.tsx";
 import { LogoText } from "../components/LogoText.tsx";
 import { THUMB_URL } from "../domain/image.ts";
 import { HandlerContext, Handlers } from "$fresh/server.ts";
+import TopList from "../islands/TopList.tsx";
 
 export const handler: Handlers = {
   async GET(_req: Request, ctx: HandlerContext) {
@@ -40,30 +41,7 @@ export default function Home() {
         <p class={tw`col-span-3`} style={{ lineHeight: 2.5 }}>
           <a href={`/form`}>ポッドキャストの登録</a>
         </p>
-        {a.map((data) => {
-          // urlのルールで #以降ページ内リンクとして認識されるのでハッシュを手動で変換する
-          const url = data.hash.replaceAll("#", "%23");
-          return (
-            <a
-              href={`/content/${url}/`}
-              key={data.hashEncoded}
-              class={tw`flex-basis`}
-            >
-              {/* <h2>{data.name}</h2> */}
-              <img
-                style={{
-                  minWidth: `100px`,
-                  minHeight: `100px`,
-                  width: `100%`,
-                  height: `100%`,
-                  objectFit: `cover`,
-                }}
-                alt={data.name}
-                src={`${THUMB_URL}${data.hashEncoded.replaceAll("#", "%23")}`}
-              />
-            </a>
-          );
-        })}
+        <TopList list={a} />
       </div>
     </div>
   );
