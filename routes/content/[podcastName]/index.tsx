@@ -1,9 +1,36 @@
 /** @jsx h */
 import { h } from "preact";
 import { Handlers } from "$fresh/server.ts";
-import { getNewPodcast } from "../../../domain/api.ts";
 import { getGuid } from "../../../domain/episode.ts";
 import type { GetPodcast, NewItem } from "../../../domain/api.ts";
+
+import { getCache, pushCache } from "../../../domain/cache.ts";
+import { getNewPodcast } from "../../../domain/api.ts";
+
+/**
+ * キャッシュのチェックをする
+ * あればキャッシュを返す
+ *
+ * キャッシュがない場合
+ * データ取得
+ * キャッシュ登録
+ */
+export const getNewPodcastWithCache = async (): Promise<NewItem[]> => {
+  const key = `getNewPodcastWithCache`;
+
+  const cache = await getCache<string>(key);
+
+  if (cache.value) {
+    return JSON.parse(cache.value);
+  }
+
+  const resp = await getNewPodcast();
+  const data = await resp.json() as NewItem[];
+
+  pushCache<NewItem[]>(key, data);
+
+  return data;
+};
 
 /**
  * params.podcastNameを取得
@@ -20,8 +47,7 @@ export const handler: Handlers<GetPodcast | null> = {
       ? `https://voicecamp.love`
       : `http://localhost:8000`;
 
-    const resp = await getNewPodcast();
-    const data: NewItem[] = await resp.json() ;
+    const data: NewItem[] = await getNewPodcastWithCache();
     const found = data.find((d) => d.hash === ctx.params.podcastName);
 
     if (

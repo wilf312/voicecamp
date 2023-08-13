@@ -20,7 +20,7 @@ interface PageType {
 
 export const handler: Handlers<PageType | null> = {
   async GET(_, ctx) {
-    console.log(ctx.params);
+    console.log(`episode page`, ctx.params);
     const resp = await getPodcast(ctx.params.podcastName);
     if (resp.status === 404) {
       return ctx.render(null);
