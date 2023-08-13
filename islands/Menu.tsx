@@ -28,9 +28,9 @@ export default function Menu() {
         <Icon size={0.5} type="home" /> トップへ戻る
       </a>
       {
-        /* <a href="/feelingLucky" class={tw`flex items-center`}>
-        <Icon size={0.5} type="switchAccessShortcut" /> I’m Feeling Lucky
-      </a> */
+        <a href="/feelingLucky" class={tw`flex items-center`}>
+          <Icon size={0.5} type="switchAccessShortcut" /> I’m Feeling Lucky
+        </a>
       }
     </div>
   );

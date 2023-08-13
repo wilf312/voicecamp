@@ -65,11 +65,12 @@ export const handler: Handlers<GetPodcast | null> = {
       encodeURIComponent(ctx.params.podcastName)
     }/${guid}`;
 
-    return new Response("", {
+    const headers = new Headers();
+    headers.set("location", redirectURL);
+    const res = new Response("redirect", {
       status: 303,
-      headers: {
-        Location: redirectURL,
-      },
+      headers,
     });
+    return res;
   },
 };

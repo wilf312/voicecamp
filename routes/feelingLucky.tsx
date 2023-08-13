@@ -1,24 +1,35 @@
 import { Handlers } from "$fresh/server.ts";
 import { getEncodedUrl } from "../config.ts";
 
+import { getNewPodcastWithCache } from "./content/[podcastName]/index.tsx";
+
 export const handler: Handlers = {
-  GET(request) {
+  async GET(request) {
     const url = new URL(request.url);
-    const urlList = getEncodedUrl()
-    const randomIndex = ~~(Math.random() * urlList.length) 
-    const config = urlList[randomIndex]
+    const urlList = await getNewPodcastWithCache();
+    const randomIndex = ~~(Math.random() * urlList.length);
+    const config = urlList[randomIndex];
 
     const origin = url.origin === `https://wilf312-voicecamp.deno.dev`
       ? `https://voicecamp.love`
       : `http://localhost:8000`;
 
-    const redirectURL = `${origin}/content/${config.hash}/`;
+    // guid がテキストのみの場合はそのまま、object形式の場合は中身を取り出す
+    const guid = encodeURIComponent(
+      config.latestId || ``,
+    );
 
-    return new Response("", {
+    console.log({ config });
+    const redirectURL = `${origin}/content/${
+      encodeURIComponent(config.hash)
+    }/${guid}`;
+
+    const headers = new Headers();
+    headers.set("location", redirectURL);
+    const res = new Response("redirect", {
       status: 303,
-      headers: {
-        Location: redirectURL,
-      },
+      headers,
     });
+    return res;
   },
 };
