@@ -21,7 +21,15 @@ export const getNewPodcastWithCache = async (): Promise<NewItem[]> => {
   const cache = await getCache<string>(key);
 
   if (cache.value) {
-    return JSON.parse(cache.value);
+    try {
+      const json = JSON.parse(cache.value);
+      // キャッシュ日付チェック
+      if (!isCacheOld(json.date)) {
+        return json.data;
+      }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   const resp = await getNewPodcast();
