@@ -5,12 +5,13 @@
 import * as $0 from "./routes/[name].tsx";
 import * as $1 from "./routes/_app.tsx";
 import * as $2 from "./routes/api/getNewPodcast.ts";
-import * as $3 from "./routes/api/podcast.ts";
-import * as $4 from "./routes/content/[podcastName]/[episode].tsx";
-import * as $5 from "./routes/content/[podcastName]/index.tsx";
-import * as $6 from "./routes/feelingLucky.tsx";
-import * as $7 from "./routes/form.tsx";
-import * as $8 from "./routes/index.tsx";
+import * as $3 from "./routes/api/kv.ts";
+import * as $4 from "./routes/api/podcast.ts";
+import * as $5 from "./routes/content/[podcastName]/[episode].tsx";
+import * as $6 from "./routes/content/[podcastName]/index.tsx";
+import * as $7 from "./routes/feelingLucky.tsx";
+import * as $8 from "./routes/form.tsx";
+import * as $9 from "./routes/index.tsx";
 import * as $$0 from "./islands/Counter.tsx";
 import * as $$1 from "./islands/Menu.tsx";
 import * as $$2 from "./islands/Player.tsx";
@@ -21,12 +22,13 @@ const manifest = {
     "./routes/[name].tsx": $0,
     "./routes/_app.tsx": $1,
     "./routes/api/getNewPodcast.ts": $2,
-    "./routes/api/podcast.ts": $3,
-    "./routes/content/[podcastName]/[episode].tsx": $4,
-    "./routes/content/[podcastName]/index.tsx": $5,
-    "./routes/feelingLucky.tsx": $6,
-    "./routes/form.tsx": $7,
-    "./routes/index.tsx": $8,
+    "./routes/api/kv.ts": $3,
+    "./routes/api/podcast.ts": $4,
+    "./routes/content/[podcastName]/[episode].tsx": $5,
+    "./routes/content/[podcastName]/index.tsx": $6,
+    "./routes/feelingLucky.tsx": $7,
+    "./routes/form.tsx": $8,
+    "./routes/index.tsx": $9,
   },
   islands: {
     "./islands/Counter.tsx": $$0,

@@ -20,6 +20,16 @@ export const getCache = async <T>(key: string) => {
   );
 };
 
+
+
+export const deleteCache = async <T>(key: string) => {
+  const kv = await Deno.openKv();
+
+  return await kv.delete(
+    [DOMAIN_KEY, key],
+  );
+};
+
 export const isCacheOld = (
   cacheDate: Date,
   options: { cacheTime: number; now: Date } = {
