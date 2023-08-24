@@ -15,8 +15,8 @@ import { getNewPodcast } from "../../../domain/api.ts";
  * データ取得
  * キャッシュ登録
  */
+export const key = `getNewPodcastWithCache`;
 export const getNewPodcastWithCache = async (): Promise<NewItem[]> => {
-  const key = `getNewPodcastWithCache`;
 
   const cache = await getCache<string>(key);
 
