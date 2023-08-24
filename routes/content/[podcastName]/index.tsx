@@ -4,7 +4,7 @@ import { Handlers } from "$fresh/server.ts";
 import { getGuid } from "../../../domain/episode.ts";
 import type { GetPodcast, NewItem } from "../../../domain/api.ts";
 
-import { getCache, pushCache } from "../../../domain/cache.ts";
+import { getCache, pushCache, isCacheOld } from "../../../domain/cache.ts";
 import { getNewPodcast } from "../../../domain/api.ts";
 
 /**
