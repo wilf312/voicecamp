@@ -4,7 +4,11 @@ import { Handlers } from "$fresh/server.ts";
 import { getGuid } from "../../../domain/episode.ts";
 import type { GetPodcast, NewItem } from "../../../domain/api.ts";
 
-import { getCache, pushCache, isCacheOld } from "../../../domain/cache.ts";
+import {
+  getCache,
+  isCacheOld,
+  pushCache,
+} from "../../../domain/cacheForUpstash.ts";
 import { getNewPodcast } from "../../../domain/api.ts";
 
 /**
@@ -17,16 +21,11 @@ import { getNewPodcast } from "../../../domain/api.ts";
  */
 export const key = `getNewPodcastWithCache`;
 export const getNewPodcastWithCache = async (): Promise<NewItem[]> => {
+  const cache = await getCache<any>(key); // TODO: any対応
 
-  const cache = await getCache<string>(key);
-
-  if (cache.value) {
+  if (cache) {
     try {
-      const json = JSON.parse(cache.value);
-      // キャッシュ日付チェック
-      if (!isCacheOld(json.date)) {
-        return json.data;
-      }
+      return cache.data;
     } catch (error) {
       console.error(error);
     }
