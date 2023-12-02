@@ -1,14 +1,10 @@
 import { Redis } from "https://deno.land/x/upstash_redis@v1.14.0/mod.ts";
-import { load } from "https://deno.land/std@0.208.0/dotenv/mod.ts";
 import { assert } from "https://deno.land/std@0.190.0/_util/asserts.ts";
 import "https://deno.land/std@0.191.0/dotenv/load.ts";
 
-const redisInit = async () => {
-  const env = await load();
-
+const redisInit = () => {
   const url = Deno.env.get("UPSTASH_URL");
   const token = Deno.env.get("UPSTASH_TOKEN");
-  console.log("env", env);
 
   assert(!!url, `UPSTASH_URLがセットされていません ${typeof url}`);
   assert(!!token, `UPSTASH_TOKENがセットされていません ${typeof token}`);
