@@ -2,20 +2,23 @@ import { Redis } from "https://deno.land/x/upstash_redis@v1.14.0/mod.ts";
 import { load } from "https://deno.land/std@0.208.0/dotenv/mod.ts";
 import { assert } from "https://deno.land/std@0.190.0/_util/asserts.ts";
 
-const env = await load();
+const redisInit = async () => {
+  const env = await load();
 
-const url = env["UPSTASH_URL"];
-const token = env["UPSTASH_TOKEN"];
+  const url = env["UPSTASH_URL"];
+  const token = env["UPSTASH_TOKEN"];
 
-assert(!!url, "UPSTASH_URLがセットされていません");
-assert(!!token, "UPSTASH_TOKENがセットされていません");
+  assert(!!url, "UPSTASH_URLがセットされていません");
+  assert(!!token, "UPSTASH_TOKENがセットされていません");
 
-const redis = new Redis({
-  url,
-  token,
-});
+  return new Redis({
+    url,
+    token,
+  });
+};
 
 export const pushCache = async <T>(key: string, data: T) => {
+  const redis = await redisInit();
   return await redis.set(
     key,
     JSON.stringify({
@@ -26,12 +29,14 @@ export const pushCache = async <T>(key: string, data: T) => {
 };
 
 export const getCache = async <T>(key: string) => {
+  const redis = await redisInit();
   return await redis.get<T>(
     key,
   );
 };
 
 export const deleteCache = async <T>(key: string) => {
+  const redis = await redisInit();
   return await redis.del(
     key,
   );
