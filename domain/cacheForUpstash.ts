@@ -8,8 +8,8 @@ const redisInit = async () => {
   const url = env["UPSTASH_URL"];
   const token = env["UPSTASH_TOKEN"];
 
-  assert(!!url, "UPSTASH_URLがセットされていません");
-  assert(!!token, "UPSTASH_TOKENがセットされていません");
+  assert(!!url, `UPSTASH_URLがセットされていません ${typeof url}`);
+  assert(!!token, `UPSTASH_TOKENがセットされていません ${typeof token}`);
 
   return new Redis({
     url,
