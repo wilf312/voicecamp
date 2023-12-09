@@ -53,3 +53,8 @@ export const isCacheOld = (
     options.now.setSeconds(options.now.getSeconds() - cacheTime),
   )) < cacheDate;
 };
+
+export const deleteCacheAll = async () => {
+  const redis = await redisInit();
+  await redis.flushall();
+};

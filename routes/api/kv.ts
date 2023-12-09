@@ -1,5 +1,7 @@
 import { HandlerContext } from "$fresh/server.ts";
 import { deleteCache } from "../../domain/cache.ts";
+import { deleteCacheAll } from "../../domain/cacheForUpstash.ts";
+
 import {
   getNewPodcastWithCache,
   key,
@@ -16,8 +18,9 @@ export const handler = async (
 
     if (hasDeleteParam) {
       const deleteRes = await deleteCache(key);
+      const redisRes = await deleteCacheAll();
 
-      console.log({ deleteRes });
+      console.log({ deleteRes, redisRes });
     }
     return new Response(
       JSON.stringify(await getNewPodcastWithCache()),
