@@ -77,7 +77,7 @@ export default function GreetPage(
       <div
         class={tw`flex flex-col justify-between align-center`}
         style={{
-          minHeight: `100vh`,
+          minHeight: `100svh`,
           height: `100svh`,
           backdropFilter: `blur(9px)`,
         }}
@@ -117,7 +117,7 @@ export default function GreetPage(
       <div
         style={{
           overflowY: `scroll`,
-          height: `100vh`,
+          height: `100svh`,
           backdropFilter: `blur(60px)`,
           padding: '16px',
           background:
