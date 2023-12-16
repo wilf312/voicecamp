@@ -9,7 +9,7 @@ on:
     branches:
       - 'main'
     paths:
-      - 'src/**'
+      - './**'
   workflow_dispatch:
 
 # defaults:
