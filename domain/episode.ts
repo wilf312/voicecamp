@@ -1,6 +1,6 @@
-import { EpisodeItem } from "../components/EpisodeList.tsx";
+import { Item } from "./api.ts";
 
-export const getGuid = (episode: EpisodeItem): string => {
+export const getGuid = (episode: Item): string => {
   if (!episode?.guid) {
     return "";
   }

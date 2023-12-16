@@ -1,6 +1,6 @@
 self.addEventListener("fetch", (event) => {
-  let url = new URL(event.request.url);
-  let method = event.request.method;
+  const url = new URL(event.request.url);
+  const method = event.request.method;
 
   if (method.toLowerCase() !== "get") return;
 

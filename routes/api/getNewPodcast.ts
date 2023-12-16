@@ -6,7 +6,7 @@ export const handler = async (
   _ctx: HandlerContext,
 ) => {
   const method = _req.method.toLowerCase();
-  
+
   if (method === `get`) {
     return new Response(
       JSON.stringify(await getNewPodcastWithCache()),
