@@ -2,39 +2,11 @@
 import { h } from "preact";
 import { tw } from "@twind";
 import { getGuid } from "../domain/episode.ts";
-
-export type EpisodeItem = {
-  ["dc:creator"]: string;
-  description: string;
-  enclosure: {
-    ["@length"]: number;
-    ["@type"]: string;
-    ["@url"]: string;
-  };
-  guid: string | {
-    ["#text"]: string;
-  };
-  ["media:thumbnail"]: {
-    ["@url"]: string;
-    ["@href"]: string;
-  };
-  ["itunes:duration"]: string;
-  ["itunes:episode"]: number;
-  ["itunes:episodeType"]: string;
-  ["itunes:explicit"]: string;
-  ["itunes:image"]: {
-    ["@href"]: string;
-  };
-  ["itunes:season"]: number;
-  ["itunes:summary"]: string;
-  link: string;
-  pubDate: string;
-  title: string;
-};
+import { Item } from "../domain/api.ts";
 
 export const EpisodeList = (props: {
   currentGuid: string;
-  episodeList: EpisodeItem[];
+  episodeList: Item[];
   podcastName: string;
 }) => {
   return (
