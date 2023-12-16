@@ -20,8 +20,6 @@ export const getCache = async <T>(key: string) => {
   );
 };
 
-
-
 export const deleteCache = async <T>(key: string) => {
   const kv = await Deno.openKv();
 

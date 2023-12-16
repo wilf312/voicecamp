@@ -1,6 +1,8 @@
 {
   "tasks": {
-    "start": "deno run --unstable -A --watch=static/,routes/ dev.ts"
+    "start": "deno run --unstable -A --watch=static/,routes/ dev.ts",
+    "lint": "deno lint",
+    "format": "deno fmt"
   },
   "importMap": "./import_map.json"
 }

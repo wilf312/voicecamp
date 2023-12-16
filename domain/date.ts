@@ -9,9 +9,9 @@ export const timeFormat = (currentTime: number) => {
 };
 
 export const timeFormatShort = (currentTime: number) => {
-  const hNum = (~~(currentTime / 3600));
-  const mNum = (~~(currentTime % 3600 / 60));
-  const sNum = (~~(currentTime % 60));
+  const hNum = ~~(currentTime / 3600);
+  const mNum = ~~(currentTime % 3600 / 60);
+  const sNum = ~~(currentTime % 60);
   /**@type{string}*/
   const h = hNum ? `${hNum.toString()}:` : ``;
   /**@type{string}*/

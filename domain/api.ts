@@ -43,7 +43,7 @@ export interface GetPodcast {
   item: Item[];
 }
 
-interface Item {
+export interface Item {
   title: string;
   description: string;
   link: string;
