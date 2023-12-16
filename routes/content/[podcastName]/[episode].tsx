@@ -2,8 +2,7 @@
 import { h } from "preact";
 import { Handlers, PageProps } from "$fresh/server.ts";
 import { getPodcast } from "../../../domain/api.ts";
-import type { GetPodcast } from "../../../domain/api.ts";
-import type { EpisodeItem } from "../../../components/EpisodeList.tsx";
+import type { GetPodcast, Item } from "../../../domain/api.ts";
 import { EpisodeList } from "../../../components/EpisodeList.tsx";
 import Player from "../../../islands/Player.tsx";
 import { tw } from "@twind";
@@ -36,20 +35,24 @@ export const handler: Handlers<PageType | null> = {
 
 export default function GreetPage(
   {
-    data: { podcastMaster, podcastName, guid },
+    data,
   }: PageProps<PageType | null>,
 ) {
-  const episodeList = podcastMaster.item;
-  const episode: EpisodeItem | null = episodeList.find((d: EpisodeItem) => {
+  const episodeList = data?.podcastMaster.item;
+  const episode: Item | null = episodeList?.find((d) => {
     const _guid = getGuid(d);
-    return _guid === decodeURIComponent(guid);
-  });
+    return _guid === decodeURIComponent(data?.guid ?? "");
+  }) ?? null;
 
-  const imageUrl = `${THUMB_URL}${podcastName}`;
+  const imageUrl = `${THUMB_URL}${data?.podcastName}`;
 
   const title = `${episode?.title} | ${
-    decodeURIComponent(podcastName)
+    decodeURIComponent(data?.podcastName ?? "")
   } | Voice Camp`;
+
+  if (!data || !episode || !episodeList) {
+    return <div>エピソードが見つかりません</div>;
+  }
 
   /**
    * windowサイズがmd768px以上ならエピソードリストを表示する
@@ -97,7 +100,7 @@ export default function GreetPage(
                 maxHeight: `16rem`,
                 boxShadow: `3px 3px 8px 1px grey;`,
               }}
-              src={`${THUMB_URL}${podcastName}`}
+              src={`${THUMB_URL}${data.podcastName}`}
             />
           )}
         </div>
@@ -108,14 +111,16 @@ export default function GreetPage(
             background: `linear-gradient(45deg, white, transparent)`,
           }}
         >
-          <h1 class={tw`px-2 text-center text-base`}>{episode?.title}</h1>
-          <h2 class={tw`pt-2 text-center text-sm`}>{podcastMaster?.title}</h2>
+          <h1 class={tw`px-2 text-center text-base`}>{episode.title}</h1>
+          <h2 class={tw`pt-2 text-center text-sm`}>
+            {data.podcastMaster.title}
+          </h2>
 
           {episode && (
             <Player
-              hash={podcastName}
+              hash={data.podcastName}
               episode={episode}
-              src={episode?.enclosure?.["@url"]}
+              src={episode.enclosure?.["@url"]}
             />
           )}
         </div>
@@ -131,9 +136,9 @@ export default function GreetPage(
         }}
       >
         <EpisodeList
-          currentGuid={episode ? getGuid(episode) : ""}
+          currentGuid={getGuid(episode)}
           episodeList={episodeList}
-          podcastName={podcastName}
+          podcastName={data.podcastName}
         />
       </div>
     </div>
