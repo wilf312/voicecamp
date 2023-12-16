@@ -5,5 +5,15 @@
     "lint": "deno lint",
     "format": "deno fmt"
   },
-  "importMap": "./import_map.json"
+  "importMap": "./import_map.json",
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": false,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": ["./"],
+    "exclude": ["e2e/"]
+  }
 }
