@@ -10,6 +10,7 @@ import { Head } from "$fresh/src/runtime/head.ts";
 import Menu from "../../../islands/Menu.tsx";
 import { getGuid } from "../../../domain/episode.ts";
 import { THUMB_URL } from "../../../domain/image.ts";
+import ArtWork from "../../../islands/ArtWork.tsx";
 
 interface PageType {
   podcastMaster: GetPodcast;
@@ -86,24 +87,12 @@ export default function GreetPage(
           <Menu />
         </div>
         {/* アートワーク */}
-        <div
-          class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}
-          style={{
-            minHeight: 380,
-          }}
-        >
-          {imageUrl && (
-            <img
-              class={tw`rounded-md `}
-              style={{
-                maxWidth: `16rem`,
-                maxHeight: `16rem`,
-                boxShadow: `3px 3px 8px 1px grey;`,
-              }}
-              src={`${THUMB_URL}${data.podcastName}`}
-            />
-          )}
-        </div>
+        <ArtWork
+          title={data.podcastMaster.title}
+          imageSrc={imageUrl}
+          description={episode.description}
+        />
+
         {/* コントール部 */}
         <div
           class={tw`py-4 flex flex-col justify-end pb-2 `}
