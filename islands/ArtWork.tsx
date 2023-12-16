@@ -30,15 +30,27 @@ export default function ArtWork(props: props) {
       />
       {isOpen &&
         (
-          <div style={{ whiteSpace: `pre-wrap`, background: `#ffffffdb` }}>
+          <div
+            style={{
+              padding: `1em`,
+              width: `90%`,
+              zIndex: 10,
+              position: `fixed`,
+              top: `0`,
+              left: `0`,
+              whiteSpace: `pre-wrap`,
+              background: `#ffffffdb`,
+              height: `96svh`,
+              overflowY: `scroll`,
+            }}
+          >
             <button
               onClick={onClose}
               class={`px-3 py-2 bg-white rounded border(gray-500 2) hover:bg-gray-200 active:bg-gray-300 disabled:(opacity-50 cursor-not-allowed)`}
             >
               閉じる
             </button>
-            <div>
-              {props.description}
+            <div dangerouslySetInnerHTML={{ __html: props.description }}>
             </div>
           </div>
         )}

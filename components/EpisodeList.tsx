@@ -12,7 +12,7 @@ export const EpisodeList = (props: {
   return (
     <div
       style={{
-        lineHeight: 2,
+        lineHeight: 2.5,
       }}
     >
       {props.episodeList.map((d) => {

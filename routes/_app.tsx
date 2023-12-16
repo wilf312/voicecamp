@@ -6,6 +6,7 @@ import { Head } from '$fresh/runtime.ts'
 import { AppProps } from '$fresh/src/server/types.ts'
 import GA from '../components/GA.tsx'
 import SW from '../components/SW.tsx'
+import GlobalStyle from '../components/GlobalStyle.tsx'
 
 export default function App({ Component }: AppProps) {
   return (
@@ -24,6 +25,7 @@ export default function App({ Component }: AppProps) {
         />
       </Head>
       <body>
+        <GlobalStyle />
         <Component />
         <GA />
         <SW />
