@@ -1,15 +1,15 @@
 /** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
-import { useDisclosure } from "../hook/useDisclosure.ts";
+import { h } from 'preact'
+import { tw } from '@twind'
+import { useDisclosure } from '../hook/useDisclosure.ts'
 
 type props = {
-  imageSrc: string;
-  title: string;
-  description: string;
-};
+  imageSrc: string
+  title: string
+  description: string
+}
 export default function ArtWork(props: props) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure()
   return (
     <div
       class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}
@@ -43,5 +43,5 @@ export default function ArtWork(props: props) {
           </div>
         )}
     </div>
-  );
+  )
 }

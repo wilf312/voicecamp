@@ -2,15 +2,15 @@
  * useDisclosure
  * https://github.com/chakra-ui/chakra-ui/blob/main/packages/hooks/use-disclosure/src/index.ts
  */
-import { useCallback, useState } from "preact/hooks";
-import { useCallbackRef } from "./useCallbackRef.ts";
+import { useCallback, useState } from 'preact/hooks'
+import { useCallbackRef } from './useCallbackRef.ts'
 
 export interface UseDisclosureProps {
-  isOpen?: boolean;
-  defaultIsOpen?: boolean;
-  onClose?(): void;
-  onOpen?(): void;
-  id?: string;
+  isOpen?: boolean
+  defaultIsOpen?: boolean
+  onClose?(): void
+  onOpen?(): void
+  id?: string
 }
 
 /**
@@ -24,38 +24,38 @@ export function useDisclosure(props: UseDisclosureProps = {}) {
     onClose: onCloseProp,
     onOpen: onOpenProp,
     isOpen: isOpenProp,
-  } = props;
+  } = props
 
-  const handleOpen = useCallbackRef(onOpenProp);
-  const handleClose = useCallbackRef(onCloseProp);
+  const handleOpen = useCallbackRef(onOpenProp)
+  const handleClose = useCallbackRef(onCloseProp)
 
-  const [isOpenState, setIsOpen] = useState(props.defaultIsOpen || false);
+  const [isOpenState, setIsOpen] = useState(props.defaultIsOpen || false)
 
-  const isOpen = isOpenProp !== undefined ? isOpenProp : isOpenState;
+  const isOpen = isOpenProp !== undefined ? isOpenProp : isOpenState
 
-  const isControlled = isOpenProp !== undefined;
+  const isControlled = isOpenProp !== undefined
 
   const onClose = useCallback(() => {
     if (!isControlled) {
-      setIsOpen(false);
+      setIsOpen(false)
     }
-    handleClose?.();
-  }, [isControlled, handleClose]);
+    handleClose?.()
+  }, [isControlled, handleClose])
 
   const onOpen = useCallback(() => {
     if (!isControlled) {
-      setIsOpen(true);
+      setIsOpen(true)
     }
-    handleOpen?.();
-  }, [isControlled, handleOpen]);
+    handleOpen?.()
+  }, [isControlled, handleOpen])
 
   const onToggle = useCallback(() => {
     if (isOpen) {
-      onClose();
+      onClose()
     } else {
-      onOpen();
+      onOpen()
     }
-  }, [isOpen, onOpen, onClose]);
+  }, [isOpen, onOpen, onClose])
 
   return {
     isOpen,
@@ -63,7 +63,7 @@ export function useDisclosure(props: UseDisclosureProps = {}) {
     onClose,
     onToggle,
     isControlled,
-  };
+  }
 }
 
-export type UseDisclosureReturn = ReturnType<typeof useDisclosure>;
+export type UseDisclosureReturn = ReturnType<typeof useDisclosure>

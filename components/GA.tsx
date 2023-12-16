@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "preact";
+import { h } from 'preact'
 
 export default function GA() {
   return (
@@ -17,5 +17,5 @@ gtag('config', 'G-V2PCYD70QR');
 </script>`,
       }}
     />
-  );
+  )
 }

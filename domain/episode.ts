@@ -1,13 +1,13 @@
-import { Item } from "./api.ts";
+import { Item } from './api.ts'
 
 export const getGuid = (episode: Item): string => {
   if (!episode?.guid) {
-    return "";
+    return ''
   }
 
-  if (typeof episode.guid === "string") {
-    return episode.guid;
+  if (typeof episode.guid === 'string') {
+    return episode.guid
   } else {
-    return episode.guid["#text"];
+    return episode.guid['#text']
   }
-};
+}

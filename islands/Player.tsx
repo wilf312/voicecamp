@@ -1,48 +1,46 @@
 /** @jsx h */
-import { h } from "preact";
-import { useEffect, useState } from "preact/hooks";
-import { Icon } from "../components/Icon.tsx";
-import { tw } from "@twind";
-import { usePlayer } from "../hook/usePlayer.tsx";
-import { Item } from "../domain/api.ts";
+import { h } from 'preact'
+import { useEffect, useState } from 'preact/hooks'
+import { Icon } from '../components/Icon.tsx'
+import { tw } from '@twind'
+import { usePlayer } from '../hook/usePlayer.tsx'
+import { Item } from '../domain/api.ts'
 
 const generateShareText = (
   episode: Item,
   hash: string,
   url: string,
 ) => {
-  return `${episode.title} \n${url}\n#ボイキャン #${
-    decodeURIComponent(hash)
-  }\n`;
-};
+  return `${episode.title} \n${url}\n#ボイキャン #${decodeURIComponent(hash)}\n`
+}
 
 type props = {
-  src: string;
-  hash: string;
-  title?: string;
-  episode: Item;
-};
+  src: string
+  hash: string
+  title?: string
+  episode: Item
+}
 export default function Player(props: props) {
-  const [shareText, setShareText] = useState<string>("");
+  const [shareText, setShareText] = useState<string>('')
   const player = usePlayer({
     src: props.src,
     onTimeUpdate: (currentTime) => {
-      const url = `${location.pathname}${`?s=${currentTime}`}`;
+      const url = `${location.pathname}${`?s=${currentTime}`}`
       // https://developer.mozilla.org/ja/docs/Web/API/History/replaceState
-      history.replaceState(null, "", url);
+      history.replaceState(null, '', url)
 
       if (!window.location) {
-        return "";
+        return ''
       }
 
       const shareText = generateShareText(
         props.episode,
         props.hash,
         window.location.href,
-      );
-      setShareText(shareText);
+      )
+      setShareText(shareText)
     },
-  });
+  })
   /**
    * タイミング: ページ読み込み時
    * 目的: ページ読み込み時に引用ボタンを表示する（再生しなくてもシェアできる）
@@ -52,23 +50,23 @@ export default function Player(props: props) {
       props.episode,
       props.hash,
       window.location.href,
-    );
-    setShareText(shareText);
-  }, []);
+    )
+    setShareText(shareText)
+  }, [])
 
   return (
     <div
       class={tw`mt-5`}
       style={{
-        display: "flex",
-        flexDirection: "column",
+        display: 'flex',
+        flexDirection: 'column',
       }}
     >
       <input
         onChange={player.onChange}
         class={tw`mx-5`}
-        type="range"
-        name="volume"
+        type='range'
+        name='volume'
         min={player.range.min}
         max={player.range.max}
         value={player.currentTime}
@@ -81,26 +79,26 @@ export default function Player(props: props) {
       <div class={tw`flex justify-evenly py-2`}>
         <Icon
           size={0.55}
-          type="back10sec"
+          type='back10sec'
           onClick={player.back10Sec}
         />
 
         {player.isPlaying && (
           <Icon
-            type="pause"
+            type='pause'
             onClick={player.pause}
           />
         )}
         {!player.isPlaying && (
           <Icon
-            type="play"
+            type='play'
             onClick={player.play}
           />
         )}
 
         <Icon
           size={0.55}
-          type="next10sec"
+          type='next10sec'
           onClick={player.next10Sec}
         />
       </div>
@@ -118,7 +116,7 @@ export default function Player(props: props) {
         >
           <Icon
             size={0.55}
-            type={player.volume.hasVolume ? "volumeOn" : "volumeOff"}
+            type={player.volume.hasVolume ? 'volumeOn' : 'volumeOff'}
           />
         </div>
         {shareText && (
@@ -126,11 +124,11 @@ export default function Player(props: props) {
             onClick={() => {
               navigator.clipboard.writeText(shareText)
                 .then(() => {
-                  console.log("text copy success");
-                  alert(`シェアテキストをコピーしました\n${shareText}`);
+                  console.log('text copy success')
+                  alert(`シェアテキストをコピーしました\n${shareText}`)
                 }, () => {
-                  console.log("text copy failed");
-                });
+                  console.log('text copy failed')
+                })
             }}
           >
             引用する
@@ -138,5 +136,5 @@ export default function Player(props: props) {
         )}
       </div>
     </div>
-  );
+  )
 }

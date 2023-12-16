@@ -1,7 +1,7 @@
-const DOMAIN_KEY = `voicecamp`;
+const DOMAIN_KEY = `voicecamp`
 
 export const pushCache = async <T>(key: string, data: T) => {
-  const kv = await Deno.openKv();
+  const kv = await Deno.openKv()
 
   return await kv.set(
     [DOMAIN_KEY, key],
@@ -9,24 +9,24 @@ export const pushCache = async <T>(key: string, data: T) => {
       data,
       date: new Date(),
     }),
-  );
-};
+  )
+}
 
 export const getCache = async <T>(key: string) => {
-  const kv = await Deno.openKv();
+  const kv = await Deno.openKv()
 
   return await kv.get<T>(
     [DOMAIN_KEY, key],
-  );
-};
+  )
+}
 
 export const deleteCache = async <T>(key: string) => {
-  const kv = await Deno.openKv();
+  const kv = await Deno.openKv()
 
   return await kv.delete(
     [DOMAIN_KEY, key],
-  );
-};
+  )
+}
 
 export const isCacheOld = (
   cacheDate: Date,
@@ -35,9 +35,9 @@ export const isCacheOld = (
     now: new Date(),
   },
 ) => {
-  const cacheTime = options.cacheTime; // 1時間
+  const cacheTime = options.cacheTime // 1時間
 
   return (new Date(
     options.now.setSeconds(options.now.getSeconds() - cacheTime),
-  )) < cacheDate;
-};
+  )) < cacheDate
+}

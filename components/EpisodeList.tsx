@@ -1,13 +1,13 @@
 /** @jsx h */
-import { h } from "preact";
-import { tw } from "@twind";
-import { getGuid } from "../domain/episode.ts";
-import { Item } from "../domain/api.ts";
+import { h } from 'preact'
+import { tw } from '@twind'
+import { getGuid } from '../domain/episode.ts'
+import { Item } from '../domain/api.ts'
 
 export const EpisodeList = (props: {
-  currentGuid: string;
-  episodeList: Item[];
-  podcastName: string;
+  currentGuid: string
+  episodeList: Item[]
+  podcastName: string
 }) => {
   return (
     <div
@@ -17,11 +17,11 @@ export const EpisodeList = (props: {
     >
       {props.episodeList.map((d) => {
         if (d?.enclosure == null) {
-          return;
+          return
         }
-        const guid = getGuid(d);
+        const guid = getGuid(d)
         return (
-          <div class={tw`flex`} key={d.enclosure["@url"]}>
+          <div class={tw`flex`} key={d.enclosure['@url']}>
             {guid === props.currentGuid &&
               <div>再生中</div>}
             <a
@@ -34,8 +34,8 @@ export const EpisodeList = (props: {
               {d.title}
             </a>
           </div>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}

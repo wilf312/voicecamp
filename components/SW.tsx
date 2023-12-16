@@ -1,5 +1,5 @@
 /** @jsx h */
-import { h } from "preact";
+import { h } from 'preact'
 
 export default function GA() {
   return (
@@ -16,5 +16,5 @@ if ("serviceWorker" in navigator) {
 </script>`,
       }}
     />
-  );
+  )
 }

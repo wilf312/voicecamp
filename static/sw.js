@@ -1,26 +1,26 @@
-self.addEventListener("fetch", (event) => {
-  const url = new URL(event.request.url);
-  const method = event.request.method;
+self.addEventListener('fetch', (event) => {
+  const url = new URL(event.request.url)
+  const method = event.request.method
 
-  if (method.toLowerCase() !== "get") return;
+  if (method.toLowerCase() !== 'get') return
 
   if (
-    url.pathname.endsWith("jpeg") ||
-    url.pathname.endsWith("jpg") ||
-    url.pathname.endsWith("png") ||
+    url.pathname.endsWith('jpeg') ||
+    url.pathname.endsWith('jpg') ||
+    url.pathname.endsWith('png') ||
     // url.pathname.endsWith("mp3") ||
     // url.pathname.endsWith("m4a") ||
-    url.host.startsWith("kind-cod-19.deno.dev")
+    url.host.startsWith('kind-cod-19.deno.dev')
   ) {
     event.respondWith(
-      caches.open("assets").then(async (cache) => {
-        const cacheResponse = await cache.match(event.request);
-        if (cacheResponse) return cacheResponse;
-        const fetchResponse = await fetch(event.request);
-        cache.put(event.request, fetchResponse.clone());
-        return fetchResponse;
+      caches.open('assets').then(async (cache) => {
+        const cacheResponse = await cache.match(event.request)
+        if (cacheResponse) return cacheResponse
+        const fetchResponse = await fetch(event.request)
+        cache.put(event.request, fetchResponse.clone())
+        return fetchResponse
       }),
-    );
+    )
   }
-  return;
-});
+  return
+})
