@@ -25,7 +25,7 @@ export default function App({ Component }: AppProps) {
         />
       </Head>
       <body>
-        <GlobalStyle />
+        {/* <GlobalStyle /> */}
         <Component />
         <GA />
         <SW />
