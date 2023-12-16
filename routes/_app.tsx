@@ -10,7 +10,7 @@ import GlobalStyle from '../components/GlobalStyle.tsx'
 
 export default function App({ Component }: AppProps) {
   return (
-    <html>
+    <html lang='ja'>
       <Head>
         <link rel='apple-touch-icon-precomposed' href='/logo.svg' />
         <link
@@ -23,9 +23,14 @@ export default function App({ Component }: AppProps) {
           href='https://voicecamp.love/logo.svg'
           type='image/vnd.microsoft.icon'
         />
+        <meta
+          name='viewport'
+          content='width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=5.0'
+        >
+        </meta>
       </Head>
       <body>
-        {/* <GlobalStyle /> */}
+        <GlobalStyle />
         <Component />
         <GA />
         <SW />
