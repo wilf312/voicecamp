@@ -30,6 +30,7 @@ jobs:
       - run: deno task format
       - name: Check the format
         run: |
+          pwd
           deno task format
           if ! git diff --exit-code --quiet; then
             git status -s
