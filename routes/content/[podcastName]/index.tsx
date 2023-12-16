@@ -2,10 +2,7 @@
 import { Handlers } from '$fresh/server.ts'
 import type { GetPodcast, NewItem } from '../../../domain/api.ts'
 
-import {
-  getCache,
-  pushCache,
-} from '../../../domain/cacheForUpstash.ts'
+import { getCache, pushCache } from '../../../domain/cacheForUpstash.ts'
 import { getNewPodcast } from '../../../domain/api.ts'
 
 /**
@@ -44,7 +41,10 @@ export const getNewPodcastWithCache = async (): Promise<NewItem[]> => {
  * guidをurlencodeしてリダイレクト先を生成
  */
 export const handler: Handlers<GetPodcast | null> = {
-  async GET(_: { url: string|URL; }, ctx: { params: { podcastName: string|number|boolean; }; }) {
+  async GET(
+    _: { url: string | URL },
+    ctx: { params: { podcastName: string | number | boolean } },
+  ) {
     console.log(ctx.params)
     const url = new URL(_.url)
 

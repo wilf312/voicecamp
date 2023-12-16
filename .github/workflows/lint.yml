@@ -27,6 +27,9 @@ jobs:
         with:
           deno-version: 1.38.5
 
+      - name: Check the lint
+        run: |
+          deno task lint
       - name: Check the format
         run: |
           pwd
@@ -36,9 +39,6 @@ jobs:
             echo フォーマット漏れがあります。Mがついているファイルを修正してください
             exit 1
           fi
-      - name: Check the lint
-        run: |
-          deno task lint
       # - name: Slack Notification
       #   id: slack
       #   if: failure() && github.ref == 'refs/heads/main'
