@@ -1,0 +1,70 @@
+name: deno/lint
+
+on:
+  pull_request:
+    paths:
+    # TODO: デイレクトりをsrc配下に移動して影響範囲を絞る
+    # - "src/**"
+  push:
+    branches:
+      - 'main'
+    paths:
+      - './**'
+  workflow_dispatch:
+
+# defaults:
+#   run:
+#     working-directory: src
+
+jobs:
+  run-ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: sparse checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+      - uses: denoland/setup-deno@v1
+        with:
+          deno-version: 1.38.5
+
+      - name: Check the lint
+        run: |
+          deno task lint
+      - name: Check the format
+        run: |
+          pwd
+          deno task format
+          if ! git diff --exit-code --quiet; then
+            git status -s
+            echo フォーマット漏れがあります。Mがついているファイルを修正してください
+            exit 1
+          fi
+      # - name: Slack Notification
+      #   id: slack
+      #   if: failure() && github.ref == 'refs/heads/main'
+      #   uses: slackapi/slack-github-action@v1.24.0
+      #   env:
+      #     SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      #   with:
+      #     channel-id: 'C043G6D4W4R'
+      #     payload: |
+      #       {
+      #         "text": ":warning: mainブランチのlintが失敗しました :warning: \n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}",
+      #         "blocks": [
+      #           {
+      #             "type": "section",
+      #             "text": {
+      #               "type": "mrkdwn",
+      #               "text": ":warning: mainブランチのlintが失敗しました :warning: \n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+      #             }
+      #           }
+      #         ]
+      #       }
+      # - name: Save Next (next lint), prettier cache
+      #   uses: actions/cache/save@v3
+      #   if: github.ref == 'refs/heads/main'
+      #   with:
+      #     path: |
+      #       frontend/.next/cache
+      #       frontend/.prettier-cache
+      #     key: frontend-next-prettier-v1-${{ github.sha }}

@@ -1,8 +1,26 @@
 {
   "tasks": {
     "start": "deno run --unstable -A --watch=static/,routes/ dev.ts",
+    "cacheFlush": "deno cache --reload dev.ts",
     "lint": "deno lint",
     "format": "deno fmt"
   },
-  "importMap": "./import_map.json"
+  "importMap": "./import_map.json",
+  "fmt": {
+    "useTabs": false,
+    "lineWidth": 80,
+    "indentWidth": 2,
+    "semiColons": false,
+    "singleQuote": true,
+    "proseWrap": "preserve",
+    "include": ["./"],
+    "exclude": ["e2e/"]
+  },
+  "lint": {
+    "include": ["./"],
+    "exclude": ["e2e/"],
+    "rules": {
+      "tags": ["recommended", "fresh"]
+    }
+  }
 }
