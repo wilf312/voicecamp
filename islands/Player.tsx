@@ -1,13 +1,13 @@
 /** @jsx h */
 import { h } from "preact";
-import { useEffect, useRef, useState } from "preact/hooks";
-import type { EpisodeItem } from "../components/EpisodeList.tsx";
+import { useEffect, useState } from "preact/hooks";
 import { Icon } from "../components/Icon.tsx";
 import { tw } from "@twind";
 import { usePlayer } from "../hook/usePlayer.tsx";
+import { Item } from "../domain/api.ts";
 
 const generateShareText = (
-  episode: EpisodeItem,
+  episode: Item,
   hash: string,
   url: string,
 ) => {
@@ -20,7 +20,7 @@ type props = {
   src: string;
   hash: string;
   title?: string;
-  episode: EpisodeItem;
+  episode: Item;
 };
 export default function Player(props: props) {
   const [shareText, setShareText] = useState<string>("");
