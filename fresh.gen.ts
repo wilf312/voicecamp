@@ -12,6 +12,7 @@ import * as $content_podcastName_index from "./routes/content/[podcastName]/inde
 import * as $feelingLucky from "./routes/feelingLucky.tsx";
 import * as $form from "./routes/form.tsx";
 import * as $index from "./routes/index.tsx";
+import * as $ArtWork from "./islands/ArtWork.tsx";
 import * as $Counter from "./islands/Counter.tsx";
 import * as $Menu from "./islands/Menu.tsx";
 import * as $Player from "./islands/Player.tsx";
@@ -33,6 +34,7 @@ const manifest = {
     "./routes/index.tsx": $index,
   },
   islands: {
+    "./islands/ArtWork.tsx": $ArtWork,
     "./islands/Counter.tsx": $Counter,
     "./islands/Menu.tsx": $Menu,
     "./islands/Player.tsx": $Player,
