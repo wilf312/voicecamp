@@ -46,7 +46,7 @@ export const handler = async (
       const iter = await kv.list<string>({
         prefix: [prefix, meaningIsPodcast],
       })
-      let list = []
+      const list = []
       for await (const res of iter) list.push(JSON.parse(res.value))
 
       return new Response(JSON.stringify({

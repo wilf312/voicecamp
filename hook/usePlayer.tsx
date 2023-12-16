@@ -88,6 +88,7 @@ export const usePlayer = (props: props) => {
       setPlaying(false)
       audioRef.current?.pause()
     },
+    // deno-lint-ignore no-explicit-any
     onChange: (e: any) => {
       if (e?.currentTarget?.value && audioRef.current?.currentTime) {
         const num = ~~e?.currentTarget?.value

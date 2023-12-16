@@ -15,5 +15,12 @@
     "proseWrap": "preserve",
     "include": ["./"],
     "exclude": ["e2e/"]
+  },
+  "lint": {
+    "include": ["./"],
+    "exclude": ["e2e/"],
+    "rules": {
+      "tags": ["recommended", "fresh"]
+    }
   }
 }

@@ -64,6 +64,7 @@ interface Enclosure {
   '@url': string
   '@length': number
   '@type': string
+  // deno-lint-ignore no-explicit-any
   '#text'?: any
 }
 
@@ -74,6 +75,7 @@ interface Guid {
 
 interface Itunesimage {
   '@href': string
+  // deno-lint-ignore no-explicit-any
   '#text'?: any
 }
 
@@ -84,6 +86,7 @@ interface Itunescategory2 {
 
 interface Itunescategory {
   '@text': string
+  // deno-lint-ignore no-explicit-any
   '#text'?: any
 }
 
@@ -96,6 +99,7 @@ interface Atomlink {
   '@href': string
   '@rel': string
   '@type'?: string
+  // deno-lint-ignore no-explicit-any
   '#text'?: any
 }
 
