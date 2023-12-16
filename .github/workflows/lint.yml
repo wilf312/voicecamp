@@ -25,7 +25,7 @@ jobs:
         uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
       - uses: denoland/setup-deno@v1
         with:
-          deno-version: e7b7129b7a92b7500ded88f8f5baa25a7f59e56e
+          deno-version: 1.38.5
 
       - name: Check the format
         run: |
