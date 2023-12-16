@@ -27,7 +27,6 @@ jobs:
         with:
           deno-version: e7b7129b7a92b7500ded88f8f5baa25a7f59e56e
 
-      - run: deno task format
       - name: Check the format
         run: |
           pwd
@@ -37,7 +36,6 @@ jobs:
             echo フォーマット漏れがあります。Mがついているファイルを修正してください
             exit 1
           fi
-      - run: deno task lint
       - name: Check the lint
         run: |
           deno task lint
