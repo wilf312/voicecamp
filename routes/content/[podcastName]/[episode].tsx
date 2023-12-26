@@ -33,7 +33,7 @@ export const handler: Handlers<PageType | null> = {
       if (resp.status === 404) {
         return ctx.render(null)
       }
-      let res = await resp.json()
+      const res = await resp.json()
       res.item = res.item.map((d) => {
         return {
           description: d.description.replace(

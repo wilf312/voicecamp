@@ -3,6 +3,7 @@
     "start": "deno run --unstable -A --watch=static/,routes/ dev.ts",
     "dev": "deno run --inspect-brk --unstable -A --watch=static/,routes/ dev.ts",
     "cacheFlush": "deno cache --reload dev.ts",
+    "static": "deno lint && deno fmt",
     "lint": "deno lint",
     "format": "deno fmt"
   },

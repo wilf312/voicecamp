@@ -151,7 +151,7 @@ export const urlList: UrlListItem[] = [
   },
 
   {
-    name: 'Basuke\'s Tech Talk',
+    name: "Basuke's Tech Talk",
     hash: 'basuke',
     url: 'https://anchor.fm/s/4cf7e15c/podcast/rss',
   },
