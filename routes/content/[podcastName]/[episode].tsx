@@ -10,22 +10,53 @@ import { Head } from '$fresh/src/runtime/head.ts'
 import Menu from '../../../islands/Menu.tsx'
 import { getGuid } from '../../../domain/episode.ts'
 import { THUMB_URL } from '../../../domain/image.ts'
+import { getCache, pushCache } from '../../../domain/cacheForUpstash.ts'
 import ArtWork from '../../../islands/ArtWork.tsx'
-
+import { parse, stringify } from 'https://deno.land/std@0.210.0/yaml/mod.ts'
 interface PageType {
   podcastMaster: GetPodcast
   podcastName: string
   guid: string
 }
 
+const getCacheKey = (podcastName: string) => `rss${podcastName}`
+
 export const handler: Handlers<PageType | null> = {
   async GET(_, ctx) {
     console.log(`episode page`, ctx.params)
-    const resp = await getPodcast(ctx.params.podcastName)
-    if (resp.status === 404) {
-      return ctx.render(null)
+    const cacheKey = getCacheKey(ctx.params.podcastName)
+    console.time(`cache`)
+    let data: GetPodcast = await getCache(cacheKey)
+    console.timeEnd(`cache`)
+    if (!data) {
+      const resp = await getPodcast(ctx.params.podcastName)
+      if (resp.status === 404) {
+        return ctx.render(null)
+      }
+      let res = await resp.json()
+      res.item = res.item.map((d) => {
+        return {
+          description: d.description.replace(
+            /<("[^"]*"|'[^']*'|[^'">])*>/g,
+            '',
+          ),
+          title: d.title,
+          guid: getGuid(d),
+          url: d.enclosure?.['@url'] ?? '',
+        }
+      })
+      const yamled = stringify(res)
+
+      if (yamled.length < 200000) { // 50KB以下はキャッシュする
+        await pushCache(cacheKey, res)
+        console.log(`cache gogo: ${cacheKey}`, yamled.length)
+      } else { // 1MB以上はキャッシュしない
+        console.log(`cache skipped: ${cacheKey}`, yamled.length)
+      }
+      data = res
+    } else {
+      data = data.data
     }
-    const data: GetPodcast = await resp.json()
     return ctx.render({
       podcastMaster: data,
       podcastName: ctx.params.podcastName,
@@ -41,7 +72,7 @@ export default function GreetPage(
 ) {
   const episodeList = data?.podcastMaster.item
   const episode: Item | null = episodeList?.find((d) => {
-    const _guid = getGuid(d)
+    const _guid = d.guid
     return _guid === decodeURIComponent(data?.guid ?? '')
   }) ?? null
 
@@ -109,7 +140,7 @@ export default function GreetPage(
             <Player
               hash={data.podcastName}
               episode={episode}
-              src={episode.enclosure?.['@url']}
+              src={episode.url}
             />
           )}
         </div>
@@ -125,7 +156,7 @@ export default function GreetPage(
         }}
       >
         <EpisodeList
-          currentGuid={getGuid(episode)}
+          currentGuid={episode.guid}
           episodeList={episodeList}
           podcastName={data.podcastName}
         />

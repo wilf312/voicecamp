@@ -1,6 +1,8 @@
 import { Redis } from 'https://deno.land/x/upstash_redis@v1.14.0/mod.ts'
 import { assert } from 'https://deno.land/std@0.190.0/_util/asserts.ts'
 import 'https://deno.land/std@0.191.0/dotenv/load.ts'
+import { decode, encode } from 'https://deno.land/x/msgpack@v1.2/mod.ts'
+import { compress, decompress } from 'https://deno.land/x/brotli@0.1.7/mod.ts'
 
 const redisInit = () => {
   const url = Deno.env.get('UPSTASH_URL')
@@ -31,6 +33,29 @@ export const getCache = async <T>(key: string) => {
   return await redis.get<T>(
     key,
   )
+}
+
+export const pushCacheBin = async <T>(key: string, data: T) => {
+  const redis = await redisInit()
+
+  return await redis.hset(
+    key,
+    {
+      bin: compress(encode(data)),
+    },
+  )
+}
+
+export const getCacheBin = async <T>(key: string) => {
+  const redis = await redisInit()
+  const res = await redis.hget<T>(
+    key,
+    'bin',
+  )
+  if (!res) {
+    return null
+  }
+  return decode(decompress(res))
 }
 
 export const deleteCache = async <T>(key: string) => {

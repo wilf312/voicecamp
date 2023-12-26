@@ -5,6 +5,7 @@
  */
 export const getPodcast = (hashEncoded: string) => {
   const url = `https://podcast.wilf.workers.dev/api/${hashEncoded}`
+  console.log({ url })
 
   return fetch(url, {
     method: 'GET',
