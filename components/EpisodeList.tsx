@@ -16,12 +16,12 @@ export const EpisodeList = (props: {
       }}
     >
       {props.episodeList.map((d) => {
-        if (d?.enclosure == null) {
+        if (d?.url == null) {
           return
         }
-        const guid = getGuid(d)
+        const guid = d.guid
         return (
-          <div class={tw`flex`} key={d.enclosure['@url']}>
+          <div class={tw`flex`} key={d.url}>
             {guid === props.currentGuid &&
               <div>再生中</div>}
             <a
