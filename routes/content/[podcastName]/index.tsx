@@ -42,8 +42,8 @@ export const getNewPodcastWithCache = async (): Promise<NewItem[]> => {
  */
 export const handler: Handlers<GetPodcast | null> = {
   async GET(
-    _: { url: string | URL },
-    ctx: { params: { podcastName: string | number | boolean } },
+    _,
+    ctx,
   ) {
     console.log(ctx.params)
     const url = new URL(_.url)

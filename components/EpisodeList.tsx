@@ -1,12 +1,11 @@
 /** @jsx h */
 import { h } from 'preact'
 import { tw } from '@twind'
-import { getGuid } from '../domain/episode.ts'
-import { Item } from '../domain/api.ts'
+import { EpisodeMinimal } from '../domain/type.ts'
 
 export const EpisodeList = (props: {
   currentGuid: string
-  episodeList: Item[]
+  episodeList: EpisodeMinimal[]
   podcastName: string
 }) => {
   return (
@@ -17,7 +16,7 @@ export const EpisodeList = (props: {
     >
       {props.episodeList.map((d) => {
         if (d?.url == null) {
-          return
+          return []
         }
         const guid = d.guid
         return (

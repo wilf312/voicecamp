@@ -12,8 +12,8 @@ export default function Form() {
         width='640'
         height='844'
         frameborder='0'
-        marginheight='0'
-        marginwidth='0'
+        marginHeight={0}
+        marginWidth={0}
       >
         読み込んでいます…
       </iframe>

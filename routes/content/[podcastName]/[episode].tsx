@@ -10,11 +10,13 @@ import { Head } from '$fresh/src/runtime/head.ts'
 import Menu from '../../../islands/Menu.tsx'
 import { getGuid } from '../../../domain/episode.ts'
 import { THUMB_URL } from '../../../domain/image.ts'
+import { EpisodeMinimal } from '../../../domain/type.ts'
 import { getCache, pushCache } from '../../../domain/cacheForUpstash.ts'
 import ArtWork from '../../../islands/ArtWork.tsx'
 import { parse, stringify } from 'https://deno.land/std@0.210.0/yaml/mod.ts'
 interface PageType {
   podcastMaster: GetPodcast
+  podcastItem: EpisodeMinimal[]
   podcastName: string
   guid: string
 }
@@ -26,7 +28,9 @@ export const handler: Handlers<PageType | null> = {
     console.log(`episode page`, ctx.params)
     const cacheKey = getCacheKey(ctx.params.podcastName)
     console.time(`read cache`)
-    let data: GetPodcast = await getCache(cacheKey)
+    let podcastMaster = null
+    let podcastItem = null
+    const data = await getCache<GetPodcast>(cacheKey)
     console.timeEnd(`read cache`)
     if (!data) {
       const resp = await getPodcast(ctx.params.podcastName)
@@ -34,7 +38,7 @@ export const handler: Handlers<PageType | null> = {
         return ctx.render(null)
       }
       const res = await resp.json()
-      res.item = res.item.map((d) => {
+      res.item = podcastItem = res.item.map((d: Item): EpisodeMinimal => {
         return {
           description: d.description?.replace(
             /<("[^"]*"|'[^']*'|[^'">])*>/g,
@@ -53,12 +57,13 @@ export const handler: Handlers<PageType | null> = {
       } else { // 1MB以上はキャッシュしない
         console.log(`cache skipped: ${cacheKey}`, jsoned.length)
       }
-      data = res
+      podcastMaster = res
     } else {
-      data = data.data
+      podcastItem = data.data
     }
     return ctx.render({
-      podcastMaster: data,
+      podcastMaster,
+      podcastItem,
       podcastName: ctx.params.podcastName,
       guid: ctx.params.episode,
     })
@@ -70,8 +75,8 @@ export default function GreetPage(
     data,
   }: PageProps<PageType | null>,
 ) {
-  const episodeList = data?.podcastMaster.item
-  const episode: Item | null = episodeList?.find((d) => {
+  const episodeList = data?.podcastItem
+  const episode: EpisodeMinimal | null = episodeList?.find((d) => {
     const _guid = d.guid
     return _guid === decodeURIComponent(data?.guid ?? '')
   }) ?? null

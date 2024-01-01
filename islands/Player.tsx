@@ -4,10 +4,10 @@ import { useEffect, useState } from 'preact/hooks'
 import { Icon } from '../components/Icon.tsx'
 import { tw } from '@twind'
 import { usePlayer } from '../hook/usePlayer.tsx'
-import { Item } from '../domain/api.ts'
+import { EpisodeMinimal } from '../domain/type.ts'
 
 const generateShareText = (
-  episode: Item,
+  episode: EpisodeMinimal,
   hash: string,
   url: string,
 ) => {
@@ -18,7 +18,7 @@ type props = {
   src: string
   hash: string
   title?: string
-  episode: Item
+  episode: EpisodeMinimal
 }
 export default function Player(props: props) {
   const [shareText, setShareText] = useState<string>('')
@@ -69,7 +69,7 @@ export default function Player(props: props) {
         name='volume'
         min={player.range.min}
         max={player.range.max}
-        value={player.currentTime}
+        value={player.currentTime ?? 0}
       />
       <div class={tw`flex justify-between px-6   text-xs`}>
         <div>{player.formattedCurrentTime}</div>
