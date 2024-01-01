@@ -1,15 +1,10 @@
-import { HandlerContext } from '$fresh/server.ts'
 import { getNewPodcastWithCache } from '../content/[podcastName]/index.tsx'
+import { Handlers } from '$fresh/server.ts'
 
-export const handler = async (
-  _req: Request,
-  _ctx: HandlerContext,
-) => {
-  const method = _req.method.toLowerCase()
-
-  if (method === `get`) {
+export const handler: Handlers = {
+  async GET(_req) {
     return new Response(
       JSON.stringify(await getNewPodcastWithCache()),
     )
-  }
+  },
 }

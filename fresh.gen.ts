@@ -6,7 +6,6 @@ import * as $_name_ from './routes/[name].tsx'
 import * as $_app from './routes/_app.tsx'
 import * as $api_getNewPodcast from './routes/api/getNewPodcast.ts'
 import * as $api_kv from './routes/api/kv.ts'
-import * as $api_podcast from './routes/api/podcast.ts'
 import * as $content_podcastName_episode_ from './routes/content/[podcastName]/[episode].tsx'
 import * as $content_podcastName_index from './routes/content/[podcastName]/index.tsx'
 import * as $feelingLucky from './routes/feelingLucky.tsx'
@@ -25,7 +24,6 @@ const manifest = {
     './routes/_app.tsx': $_app,
     './routes/api/getNewPodcast.ts': $api_getNewPodcast,
     './routes/api/kv.ts': $api_kv,
-    './routes/api/podcast.ts': $api_podcast,
     './routes/content/[podcastName]/[episode].tsx':
       $content_podcastName_episode_,
     './routes/content/[podcastName]/index.tsx': $content_podcastName_index,

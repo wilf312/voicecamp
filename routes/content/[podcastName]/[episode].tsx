@@ -10,24 +10,60 @@ import { Head } from '$fresh/src/runtime/head.ts'
 import Menu from '../../../islands/Menu.tsx'
 import { getGuid } from '../../../domain/episode.ts'
 import { THUMB_URL } from '../../../domain/image.ts'
+import { EpisodeMinimal } from '../../../domain/type.ts'
+import { getCache, pushCache } from '../../../domain/cacheForUpstash.ts'
 import ArtWork from '../../../islands/ArtWork.tsx'
-
+import { parse, stringify } from 'https://deno.land/std@0.210.0/yaml/mod.ts'
 interface PageType {
   podcastMaster: GetPodcast
+  podcastItem: EpisodeMinimal[]
   podcastName: string
   guid: string
 }
 
+const getCacheKey = (podcastName: string) => `rss${podcastName}`
+
 export const handler: Handlers<PageType | null> = {
   async GET(_, ctx) {
     console.log(`episode page`, ctx.params)
-    const resp = await getPodcast(ctx.params.podcastName)
-    if (resp.status === 404) {
-      return ctx.render(null)
+    const cacheKey = getCacheKey(ctx.params.podcastName)
+    console.time(`read cache`)
+    let podcastMaster = null
+    let podcastItem = null
+    const data = await getCache<GetPodcast>(cacheKey)
+    console.timeEnd(`read cache`)
+    if (!data) {
+      const resp = await getPodcast(ctx.params.podcastName)
+      if (resp.status === 404) {
+        return ctx.render(null)
+      }
+      const res = await resp.json()
+      res.item = podcastItem = res.item.map((d: Item): EpisodeMinimal => {
+        return {
+          description: d.description?.replace(
+            /<("[^"]*"|'[^']*'|[^'">])*>/g,
+            '',
+          ) ?? '',
+          title: d.title,
+          guid: getGuid(d),
+          url: d.enclosure?.['@url'] ?? '',
+        }
+      })
+      const jsoned = JSON.stringify(res)
+
+      if (jsoned.length < 500000) { // 50KB以下はキャッシュする
+        await pushCache(cacheKey, res)
+        console.log(`cache gogo: ${cacheKey}`, jsoned.length)
+      } else { // 1MB以上はキャッシュしない
+        console.log(`cache skipped: ${cacheKey}`, jsoned.length)
+      }
+      podcastMaster = res
+    } else {
+      podcastItem = data.data
     }
-    const data: GetPodcast = await resp.json()
     return ctx.render({
-      podcastMaster: data,
+      podcastMaster,
+      podcastItem,
       podcastName: ctx.params.podcastName,
       guid: ctx.params.episode,
     })
@@ -39,9 +75,9 @@ export default function GreetPage(
     data,
   }: PageProps<PageType | null>,
 ) {
-  const episodeList = data?.podcastMaster.item
-  const episode: Item | null = episodeList?.find((d) => {
-    const _guid = getGuid(d)
+  const episodeList = data?.podcastItem
+  const episode: EpisodeMinimal | null = episodeList?.find((d) => {
+    const _guid = d.guid
     return _guid === decodeURIComponent(data?.guid ?? '')
   }) ?? null
 
@@ -109,7 +145,7 @@ export default function GreetPage(
             <Player
               hash={data.podcastName}
               episode={episode}
-              src={episode.enclosure?.['@url']}
+              src={episode.url}
             />
           )}
         </div>
@@ -125,7 +161,7 @@ export default function GreetPage(
         }}
       >
         <EpisodeList
-          currentGuid={getGuid(episode)}
+          currentGuid={episode.guid}
           episodeList={episodeList}
           podcastName={data.podcastName}
         />
