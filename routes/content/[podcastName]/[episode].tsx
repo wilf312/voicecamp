@@ -59,7 +59,8 @@ export const handler: Handlers<PageType | null> = {
       }
       podcastMaster = res
     } else {
-      podcastItem = data.data
+      podcastMaster = data.data
+      podcastItem = data.data.item
     }
     return ctx.render({
       podcastMaster,
