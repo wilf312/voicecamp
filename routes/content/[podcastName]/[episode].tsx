@@ -21,6 +21,18 @@ interface PageType {
   guid: string
 }
 
+const getEpisodeMinimal = (d: Item): EpisodeMinimal => {
+  return {
+    description: d.description?.replace(
+      /<("[^"]*"|'[^']*'|[^'">])*>/g,
+      '',
+    ).slice(0, 50) ?? '', // TODO: ここの文字数の制約をどうするかは別で議論する
+    title: d.title,
+    guid: getGuid(d),
+    url: d.enclosure?.['@url'] ?? '',
+  }
+}
+
 const getCacheKey = (podcastName: string) => `rss${podcastName}`
 
 export const handler: Handlers<PageType | null> = {
@@ -38,20 +50,10 @@ export const handler: Handlers<PageType | null> = {
         return ctx.render(null)
       }
       const res = await resp.json()
-      res.item = podcastItem = res.item.map((d: Item): EpisodeMinimal => {
-        return {
-          description: d.description?.replace(
-            /<("[^"]*"|'[^']*'|[^'">])*>/g,
-            '',
-          ) ?? '',
-          title: d.title,
-          guid: getGuid(d),
-          url: d.enclosure?.['@url'] ?? '',
-        }
-      })
+      res.item = podcastItem = res.item.map(getEpisodeMinimal)
       const jsoned = JSON.stringify(res)
 
-      if (jsoned.length < 500000) { // 50KB以下はキャッシュする
+      if (jsoned.length < 750 * 1024) { // 50KB以下はキャッシュする
         await pushCache(cacheKey, res)
         console.log(`cache gogo: ${cacheKey}`, jsoned.length)
       } else { // 1MB以上はキャッシュしない
