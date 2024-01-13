@@ -4,6 +4,7 @@
 
 import * as $_name_ from './routes/[name].tsx'
 import * as $_app from './routes/_app.tsx'
+import * as $api_getDescription from './routes/api/getDescription.ts'
 import * as $api_getNewPodcast from './routes/api/getNewPodcast.ts'
 import * as $api_kv from './routes/api/kv.ts'
 import * as $content_podcastName_episode_ from './routes/content/[podcastName]/[episode].tsx'
@@ -22,6 +23,7 @@ const manifest = {
   routes: {
     './routes/[name].tsx': $_name_,
     './routes/_app.tsx': $_app,
+    './routes/api/getDescription.ts': $api_getDescription,
     './routes/api/getNewPodcast.ts': $api_getNewPodcast,
     './routes/api/kv.ts': $api_kv,
     './routes/content/[podcastName]/[episode].tsx':
