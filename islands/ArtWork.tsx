@@ -6,7 +6,6 @@ import { useDisclosure } from '../hook/useDisclosure.ts'
 type props = {
   imageSrc: string
   title: string
-  description: string
 }
 export default function ArtWork(props: props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
@@ -50,8 +49,10 @@ export default function ArtWork(props: props) {
             >
               閉じる
             </button>
-            <div dangerouslySetInnerHTML={{ __html: props.description }}>
-            </div>
+            {
+              /* <div dangerouslySetInnerHTML={{ __html: props.description }}>
+            </div> */
+            }
           </div>
         )}
     </div>

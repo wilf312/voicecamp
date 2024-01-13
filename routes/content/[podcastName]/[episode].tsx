@@ -23,42 +23,66 @@ interface PageType {
 
 const getEpisodeMinimal = (d: Item): EpisodeMinimal => {
   return {
-    description: d.description?.replace(
-      /<("[^"]*"|'[^']*'|[^'">])*>/g,
-      '',
-    ).slice(0, 50) ?? '', // TODO: ここの文字数の制約をどうするかは別で議論する
     title: d.title,
     guid: getGuid(d),
     url: d.enclosure?.['@url'] ?? '',
   }
 }
 
-const getCacheKey = (podcastName: string) => `rss${podcastName}`
+const getCacheKeyForEpisode = (podcastName: string) => `rss_${podcastName}`
+const getCacheKeyForDescription = (podcastName: string) =>
+  `rss_${podcastName}_description`
 
 export const handler: Handlers<PageType | null> = {
   async GET(_, ctx) {
     console.log(`episode page`, ctx.params)
-    const cacheKey = getCacheKey(ctx.params.podcastName)
+    const cacheKeyForEpisode = getCacheKeyForEpisode(ctx.params.podcastName)
+    const cacheKeyForDescription = getCacheKeyForDescription(
+      ctx.params.podcastName,
+    )
     console.time(`read cache`)
     let podcastMaster = null
     let podcastItem = null
-    const data = await getCache<GetPodcast>(cacheKey)
+    const data = await getCache<GetPodcast>(cacheKeyForEpisode)
     console.timeEnd(`read cache`)
     if (!data) {
+      console.log(`cacheないので取得処理 ${ctx.params.podcastName}`)
       const resp = await getPodcast(ctx.params.podcastName)
       if (resp.status === 404) {
         return ctx.render(null)
       }
       const res = await resp.json()
+
+      // ----  descriptionのキャッシュを作成する
+      const descriptionRecord: { [key: string]: string } = {}
+      res.item.forEach((d: Item) => {
+        descriptionRecord[getGuid(d)] = d.description
+      })
+      const jsonedDescriptionRecord = JSON.stringify(descriptionRecord)
+      if (jsonedDescriptionRecord.length < 750 * 1024) { // 50KB以下はキャッシュする
+        await pushCache(cacheKeyForDescription, descriptionRecord)
+        console.log(
+          `cache gogo: ${cacheKeyForDescription}`,
+          descriptionRecord,
+        )
+      } else { // 1MB以上はキャッシュしない
+        console.log(
+          `cache skipped: ${cacheKeyForDescription}`,
+          jsonedDescriptionRecord.length,
+        )
+      }
+
+      // ----  初期表示に必要な最低限のデータを作成する
       res.item = podcastItem = res.item.map(getEpisodeMinimal)
       const jsoned = JSON.stringify(res)
 
       if (jsoned.length < 750 * 1024) { // 50KB以下はキャッシュする
-        await pushCache(cacheKey, res)
-        console.log(`cache gogo: ${cacheKey}`, jsoned.length)
+        await pushCache(cacheKeyForEpisode, res)
+        console.log(`cache gogo: ${cacheKeyForEpisode}`, jsoned.length)
       } else { // 1MB以上はキャッシュしない
-        console.log(`cache skipped: ${cacheKey}`, jsoned.length)
+        console.log(`cache skipped: ${cacheKeyForEpisode}`, jsoned.length)
       }
+
       podcastMaster = res
     } else {
       podcastMaster = data.data
@@ -129,7 +153,6 @@ export default function GreetPage(
         <ArtWork
           title={data.podcastMaster.title}
           imageSrc={imageUrl}
-          description={episode.description}
         />
 
         {/* コントール部 */}
