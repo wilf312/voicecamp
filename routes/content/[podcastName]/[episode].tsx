@@ -30,7 +30,7 @@ const getEpisodeMinimal = (d: Item): EpisodeMinimal => {
 }
 
 const getCacheKeyForEpisode = (podcastName: string) => `rss_${podcastName}`
-const getCacheKeyForDescription = (podcastName: string) =>
+export const getCacheKeyForDescription = (podcastName: string) =>
   `rss_${podcastName}_description`
 
 export const handler: Handlers<PageType | null> = {
