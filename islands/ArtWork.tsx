@@ -2,13 +2,22 @@
 import { h } from 'preact'
 import { tw } from '@twind'
 import { useDisclosure } from '../hook/useDisclosure.ts'
+import useSWR from 'swr'
 
 type props = {
   imageSrc: string
   title: string
+  guid: string
+  podcastName: string
 }
 export default function ArtWork(props: props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
+
+  // TODO: ArtWorkでAPIから情報取得するの違和感があるのでやりよう考えた方が良さそうな気がする
+  const swr = useSWR(`/api/getDescription?podcast=${props.podcastName}`)
+
+  const description = swr?.data?.data?.[decodeURIComponent(props.guid)] ?? ``
+
   return (
     <div
       class={tw`px-7 pt-7 pb-3 flex justify-center items-center`}
@@ -49,10 +58,8 @@ export default function ArtWork(props: props) {
             >
               閉じる
             </button>
-            {
-              /* <div dangerouslySetInnerHTML={{ __html: props.description }}>
-            </div> */
-            }
+            <div dangerouslySetInnerHTML={{ __html: description }}>
+            </div>
           </div>
         )}
     </div>

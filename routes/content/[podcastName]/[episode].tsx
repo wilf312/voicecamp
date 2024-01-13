@@ -153,6 +153,8 @@ export default function GreetPage(
         <ArtWork
           title={data.podcastMaster.title}
           imageSrc={imageUrl}
+          guid={data.guid}
+          podcastName={data.podcastName}
         />
 
         {/* コントール部 */}
