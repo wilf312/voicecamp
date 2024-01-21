@@ -47,13 +47,14 @@ export const handler: Handlers<GetPodcast | null> = {
   ) {
     console.log(ctx.params)
     const url = new URL(_.url)
+    const podcastName = decodeURIComponent(ctx.params.podcastName)
 
     const origin = url.origin === `https://wilf312-voicecamp.deno.dev`
       ? `https://voicecamp.love`
       : `http://localhost:8000`
 
     const data: NewItem[] = await getNewPodcastWithCache()
-    const found = data.find((d) => d.hash === ctx.params.podcastName)
+    const found = data.find((d) => d.hash === podcastName)
 
     if (
       !data || !found || !ctx.params.podcastName
@@ -66,9 +67,7 @@ export const handler: Handlers<GetPodcast | null> = {
       found.latestId,
     )
 
-    const redirectURL = `${origin}/content/${
-      encodeURIComponent(ctx.params.podcastName)
-    }/${guid}`
+    const redirectURL = `${origin}/content/${ctx.params.podcastName}/${guid}`
 
     const headers = new Headers()
     headers.set('location', redirectURL)
