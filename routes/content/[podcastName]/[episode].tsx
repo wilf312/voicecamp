@@ -46,31 +46,32 @@ export const handler: Handlers<PageType | null> = {
     const data = await getCache<GetPodcast>(cacheKeyForEpisode)
     console.timeEnd(`read cache`)
     if (!data) {
-      console.log(`cacheないので取得処理 ${ctx.params.podcastName}`)
+      console.log(`podcast cacheないので取得処理 ${ctx.params.podcastName}`)
       const resp = await getPodcast(ctx.params.podcastName)
       if (resp.status === 404) {
         return ctx.render(null)
       }
       const res = await resp.json()
 
+      // descriptionの機構は
       // ----  descriptionのキャッシュを作成する
-      const descriptionRecord: { [key: string]: string } = {}
-      res.item.forEach((d: Item) => {
-        descriptionRecord[getGuid(d)] = d.description
-      })
-      const jsonedDescriptionRecord = JSON.stringify(descriptionRecord)
-      if (jsonedDescriptionRecord.length < 750 * 1024) { // 50KB以下はキャッシュする
-        await pushCache(cacheKeyForDescription, descriptionRecord)
-        console.log(
-          `cache gogo: ${cacheKeyForDescription}`,
-          descriptionRecord,
-        )
-      } else { // 1MB以上はキャッシュしない
-        console.log(
-          `cache skipped: ${cacheKeyForDescription}`,
-          jsonedDescriptionRecord.length,
-        )
-      }
+      // const descriptionRecord: { [key: string]: string } = {}
+      // res.item.forEach((d: Item) => {
+      //   descriptionRecord[getGuid(d)] = d.description
+      // })
+      // const jsonedDescriptionRecord = JSON.stringify(descriptionRecord)
+      // if (jsonedDescriptionRecord.length < 750 * 1024) { // 50KB以下はキャッシュする
+      //   await pushCache(cacheKeyForDescription, descriptionRecord)
+      //   console.log(
+      //     `cache gogo: ${cacheKeyForDescription}`,
+      //     descriptionRecord,
+      //   )
+      // } else { // 1MB以上はキャッシュしない
+      //   console.log(
+      //     `cache skipped: ${cacheKeyForDescription}`,
+      //     jsonedDescriptionRecord.length,
+      //   )
+      // }
 
       // ----  初期表示に必要な最低限のデータを作成する
       res.item = podcastItem = res.item.map(getEpisodeMinimal)
