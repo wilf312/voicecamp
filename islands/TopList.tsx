@@ -52,7 +52,22 @@ export default function TopList(props: TopListProps) {
             key={data.hashEncoded}
             class={tw`flex-basis`}
           >
-            {/* <h2>{data.name}</h2> */}
+            <div
+              style={{
+                position: 'absolute',
+                width: '1px',
+                height: '1px',
+                padding: '0',
+                margin: '-1px',
+                overflow: 'hidden',
+                clip: 'rect(0, 0, 0, 0)',
+                whiteSpace: 'nowrap',
+                borderWidth: '0',
+              }}
+              aria-hidden='false'
+            >
+              {data.name}
+            </div>
             <img
               style={{
                 minWidth: `100px`,
@@ -61,7 +76,7 @@ export default function TopList(props: TopListProps) {
                 height: `100%`,
                 objectFit: `cover`,
               }}
-              alt={data.name}
+              alt=''
               src={`${THUMB_URL}${data.hashEncoded.replaceAll('#', '%23')}`}
             />
           </a>
