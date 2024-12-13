@@ -40,12 +40,12 @@ type props = {
 export default function ArtWork(props: props) {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  // TODO: ArtWorkでAPIから情報取得するの違和感があるのでやりよう考えた方が良さそうな気がする
-  const swr = useSWR(
-    `/api/getDescription?podcast=${props.podcastName}&guid=${props.guid}`,
-  )
+  // // TODO: ArtWorkでAPIから情報取得するの違和感があるのでやりよう考えた方が良さそうな気がする
+  // const swr = useSWR(
+  //   `/api/getDescription?podcast=${props.podcastName}&guid=${props.guid}`,
+  // )
 
-  const description = swr?.data?.text ?? ``
+  // const description = swr?.data?.text ?? ``
 
   return (
     <div
@@ -93,11 +93,15 @@ export default function ArtWork(props: props) {
                 </div>
               </div>
             )}
+            {
+              /*
             {description &&
               (
                 <div dangerouslySetInnerHTML={{ __html: description }}>
                 </div>
               )}
+           */
+            }
           </div>
         )}
     </div>
